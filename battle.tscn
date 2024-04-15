@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwnu772oqo3u1"]
+
+[ext_resource type="Script" path="res://battle.gd" id="1_vufjn"]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_vufjn")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Tiles" type="Node2D" parent="."]
+editor_description = "When the battle is created, the tiles will be auto generated and placed under this node."
+y_sort_enabled = true
+position = Vector2(-506, -245)
+scale = Vector2(1.5, 1.5)
+
+[node name="Units" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

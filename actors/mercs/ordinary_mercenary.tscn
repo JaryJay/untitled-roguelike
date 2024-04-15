@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://lurbnkohsgju"]
+
+[ext_resource type="Texture2D" uid="uid://c4madifeovc7o" path="res://assets/characters/tilemap.png" id="1_2vkge"]
+
+[node name="OrdinaryMercenary" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("1_2vkge")
+region_enabled = true
+region_rect = Rect2(51, 120, 17, 17)

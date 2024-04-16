@@ -1,11 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://lurbnkohsgju"]
+[gd_scene load_steps=4 format=3 uid="uid://lurbnkohsgju"]
 
-[ext_resource type="Texture2D" uid="uid://c4madifeovc7o" path="res://assets/characters/tilemap.png" id="1_2vkge"]
+[ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="1_a3iae"]
+[ext_resource type="Script" path="res://actors/mercs/ordinary_mercenary.gd" id="1_xg77r"]
+[ext_resource type="PackedScene" uid="uid://db2rdlbvvowdm" path="res://ui/ability_selection_ui.tscn" id="2_yed7m"]
 
 [node name="OrdinaryMercenary" type="Node2D"]
+script = ExtResource("1_xg77r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4, 4)
-texture = ExtResource("1_2vkge")
+texture = ExtResource("1_a3iae")
+offset = Vector2(15, -1)
 region_enabled = true
-region_rect = Rect2(51, 120, 17, 17)
+region_rect = Rect2(35, 17, 69, 87)
+
+[node name="AbilitySelectionUI" parent="." instance=ExtResource("2_yed7m")]
+visible = false
+position = Vector2(39, -30)

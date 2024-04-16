@@ -1,8 +1,36 @@
-[gd_scene format=3 uid="uid://drkku2lhk47ok"]
+[gd_scene load_steps=3 format=3 uid="uid://drkku2lhk47ok"]
+
+[ext_resource type="Script" path="res://tiles/tile.gd" id="1_o6nue"]
+[ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="2_vlg1q"]
 
 [node name="Tile" type="Sprite2D"]
+script = ExtResource("1_o6nue")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+input_pickable = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(0, -45, 32, -29, 32, 6, 0, 22, -32, 6, -32, -29)
+polygon = PackedVector2Array(-29, -48, 29, -48, 57, 0, 28, 48, -28, 48, -57, 0)
+
+[node name="GoldHexagonFaint" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.270588)
+texture = ExtResource("2_vlg1q")
+region_enabled = true
+region_rect = Rect2(127, 253, 100, 91)
+
+[node name="GoldHexagonFaint2" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.631373)
+texture = ExtResource("2_vlg1q")
+region_enabled = true
+region_rect = Rect2(127, 253, 100, 91)
+
+[node name="GoldHexagon" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_vlg1q")
+region_enabled = true
+region_rect = Rect2(127, 253, 100, 91)
+
+[connection signal="mouse_entered" from="StaticBody2D" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="StaticBody2D" to="." method="_on_mouse_exited"]

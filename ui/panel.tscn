@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxx15og0dptm2"]
+
+[ext_resource type="Texture2D" uid="uid://dgwt7jiun6xxc" path="res://assets/ui/panel-transparent-center-009.png" id="1_54hde"]
+
+[node name="Panel" type="NinePatchRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_54hde")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10

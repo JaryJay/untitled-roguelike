@@ -1,10 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://55see5x25ll3"]
+[gd_scene load_steps=3 format=3 uid="uid://55see5x25ll3"]
 
-[ext_resource type="Texture2D" uid="uid://c4madifeovc7o" path="res://assets/characters/tilemap.png" id="1_7oepw"]
+[ext_resource type="Script" path="res://actors/enemies/enemy.gd" id="1_k8eem"]
+[ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="1_s0q8l"]
 
 [node name="OrdinaryEnemy" type="Node2D"]
+script = ExtResource("1_k8eem")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_7oepw")
+texture = ExtResource("1_s0q8l")
+offset = Vector2(-1, -4)
 region_enabled = true
-region_rect = Rect2(51, 153, 16, 16)
+region_rect = Rect2(273, 26, 52, 86)

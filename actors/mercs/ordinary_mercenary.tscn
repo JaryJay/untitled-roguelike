@@ -7,8 +7,6 @@
 
 [node name="OrdinaryMercenary" type="Node2D"]
 script = ExtResource("1_xg77r")
-health = null
-shield = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_a3iae")
@@ -23,3 +21,10 @@ position = Vector2(39, -30)
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_l0p4q")
 max_health = 15
+
+[node name="ActionsLeftLabel" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -57.0
+offset_right = 16.0
+offset_bottom = -34.0
+text = "2"

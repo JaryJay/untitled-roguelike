@@ -14,7 +14,7 @@ enum BattleState { PLAYER_TURN, WAITING_FOR_TARGET, ENEMY_TURN }
 
 var map: Map = Map.new()
 
-var selected_unit: Unit = null
+var selected_ally: Ally = null
 var selected_ability: Ability = null
 var selected_tile: Tile = null
 var battle_state: BattleState = BattleState.PLAYER_TURN
@@ -66,20 +66,21 @@ func _on_tile_click(pos: Vector2i) -> void:
 	elif battle_state == BattleState.WAITING_FOR_TARGET:
 		if not selected_ability:
 			return
-		if not selected_ability.is_valid_target(selected_unit, map, pos):
+		if not selected_ability.is_valid_target(selected_ally, map, pos):
 			print("Invalid target")
 			return
 		
-		var events: = selected_ability.use(selected_unit, map, pos)
+		var events: = selected_ability.use(selected_ally, map, pos)
 		
 		for event: Event in events:
-			for item: Item in selected_unit.items:
+			for item: Item in selected_ally.items:
 				item.modify_event(event)
 		
 		for event: Event in events:
 			event.perform(map)
 			event.visual_effects(get_tree())
 		
+		selected_ally.actions_left -= 1
 		selected_ability = null
 		
 		for unit: Unit in get_tree().get_nodes_in_group("units"):
@@ -87,20 +88,33 @@ func _on_tile_click(pos: Vector2i) -> void:
 				print("Unit died: %s" % unit.name)
 				map.remove_unit(unit.pos)
 				unit.queue_free()
+		
+		battle_state = BattleState.PLAYER_TURN
+		
+		if selected_ally.has_actions_left():
+			selected_tile.is_selected = false
+			selected_tile = map.get_tile(selected_ally.pos)
+			selected_tile.is_selected = true
+		else:
+			selected_ally.is_selected = false
+			selected_ally = null
+			selected_tile.is_selected = false
+			selected_tile = null
 
 func handle_unit_selection(pos: Vector2i) -> void:
-	if selected_unit:
-		selected_unit.is_selected = false
-		selected_unit = null
+	if selected_ally:
+		selected_ally.is_selected = false
+		selected_ally = null
 	if selected_tile:
 		selected_tile.is_selected = false
 		selected_tile = null
 	
-	if not map.get_unit(pos) or not map.get_unit(pos) is Ally:
+	var unit: = map.get_unit(pos)
+	if not unit or not unit is Ally or not unit.has_actions_left():
 		return
 	else:
-		selected_unit = map.get_unit(pos)
-		selected_unit.is_selected = true
+		selected_ally = unit
+		selected_ally.is_selected = true
 		selected_tile = get_tile(pos)
 		selected_tile.is_selected = true
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://55see5x25ll3"]
+[gd_scene load_steps=4 format=3 uid="uid://55see5x25ll3"]
 
 [ext_resource type="Script" path="res://actors/enemies/enemy.gd" id="1_k8eem"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="1_s0q8l"]
+[ext_resource type="Script" path="res://components/health_component.gd" id="3_xuyv4"]
 
 [node name="OrdinaryEnemy" type="Node2D"]
 script = ExtResource("1_k8eem")
@@ -11,3 +12,7 @@ texture = ExtResource("1_s0q8l")
 offset = Vector2(-1, -4)
 region_enabled = true
 region_rect = Rect2(273, 26, 52, 86)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_xuyv4")
+max_health = 10

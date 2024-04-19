@@ -1,29 +1,28 @@
-extends Node2D
+class_name Battle extends Node2D
 
 const tile_width: = 114
 const tile_height: = 97
 
-const grass_tile_scene: = preload("res://tiles/grass_tile.tscn")
-const ordinary_merc_scene: = preload("res://actors/mercs/ordinary_mercenary.tscn")
+const grass_tile_scene: = preload("res://world/grass_tile.tscn")
+const ordinary_unit_scene: = preload("res://actors/mercs/ordinary_mercenary.tscn")
 const ordinary_enemy_scene: = preload("res://actors/enemies/ordinary_enemy.tscn")
 
-enum Phase {
-	PLAN,
-	EXECUTE
-}
+enum BattleState { PLAYER_TURN, WAITING_FOR_TARGET, ENEMY_TURN }
 
 @onready var tiles: = $Tiles
 @onready var units: = $Units
 
-var units_map: Dictionary = {}
+var map: Map = Map.new()
 
-var selected_mercenary: Node2D = null
+var selected_unit: Unit = null
+var selected_ability: Ability = null
 var selected_tile: Tile = null
+var battle_state: BattleState = BattleState.PLAYER_TURN
 
 func _ready() -> void:
 	_generate_tiles()
-	add_mercenary_to(1, 0)
-	add_mercenary_to(2, 3)
+	add_ally_to(1, 0)
+	add_ally_to(2, 3)
 	add_enemy_to(7, 2)
 
 func _generate_tiles() -> void:
@@ -35,42 +34,78 @@ func _generate_tiles() -> void:
 			tile.position.y = tile_height * row + tile_height * ((col + 1) % 2)  * 0.5
 			tiles.add_child(tile)
 			tile.clicked.connect(_on_tile_click.bind(Vector2i(col, row)))
+			tile.get_node("Label").text = tile.name
+			map.set_tile(Vector2i(col, row), tile)
 
-func add_mercenary_to(x: int, y: int) -> void:
-	var coords: = Vector2i(x, y)
-	var tile: = get_tile(coords)
+func add_ally_to(x: int, y: int) -> void:
+	var pos: = Vector2i(x, y)
+	var tile: = get_tile(pos)
 	
-	var merc = ordinary_merc_scene.instantiate()
-	units.add_child(merc)
-	merc.global_position = tile.global_position
-	merc.coords = Vector2i(0, 0)
-	units_map[coords] = merc
+	var unit: Ally = ordinary_unit_scene.instantiate()
+	units.add_child(unit)
+	unit.global_position = tile.global_position
+	unit.pos = pos
+	map.add_unit(pos, unit)
+	
+	unit.ability_chosen.connect(handle_ability_selection)
 
 func add_enemy_to(x: int, y: int) -> void:
-	var coords: = Vector2i(x, y)
-	var tile: = get_tile(coords)
+	var pos: = Vector2i(x, y)
+	var tile: = get_tile(pos)
 	
 	var enemy = ordinary_enemy_scene.instantiate()
 	units.add_child(enemy)
 	enemy.global_position = tile.global_position
-	enemy.coords = Vector2i(0, 0)
-	units_map[coords] = enemy
+	enemy.pos = pos
+	map.add_unit(pos, enemy)
 
-func _on_tile_click(coords: Vector2i) -> void:
-	if selected_mercenary:
-		selected_mercenary.is_selected = false
-		selected_mercenary = null
+func _on_tile_click(pos: Vector2i) -> void:
+	if battle_state == BattleState.ENEMY_TURN: return
+	elif battle_state == BattleState.PLAYER_TURN:
+		handle_unit_selection(pos)
+	elif battle_state == BattleState.WAITING_FOR_TARGET:
+		if not selected_ability:
+			return
+		if not selected_ability.is_valid_target(selected_unit, map, pos):
+			print("Invalid target")
+			return
+		
+		var events: = selected_ability.use(selected_unit, map, pos)
+		
+		for event: Event in events:
+			for item: Item in selected_unit.items:
+				item.modify_event(event)
+		
+		for event: Event in events:
+			event.perform(map)
+		
+		selected_ability = null
+		
+		for unit: Unit in get_tree().get_nodes_in_group("units"):
+			if unit.health <= 0:
+				print("Unit died: %s" % unit.name)
+				map.remove_unit(unit.pos)
+				unit.queue_free()
+
+func handle_unit_selection(pos: Vector2i) -> void:
+	if selected_unit:
+		selected_unit.is_selected = false
+		selected_unit = null
 	if selected_tile:
 		selected_tile.is_selected = false
 		selected_tile = null
 	
-	if (not coords in units_map) or (not units_map[coords] is Ally):
+	if not map.get_unit(pos) or not map.get_unit(pos) is Ally:
 		return
 	else:
-		selected_mercenary = units_map[coords]
-		selected_mercenary.is_selected = true
-		selected_tile = get_tile(coords)
+		selected_unit = map.get_unit(pos)
+		selected_unit.is_selected = true
+		selected_tile = get_tile(pos)
 		selected_tile.is_selected = true
 
-func get_tile(coords: Vector2i) -> Node2D:
-	return get_node("Tiles/%d_%d" % [coords.x, coords.y])
+func handle_ability_selection(ability: Ability) -> void:
+	selected_ability = ability
+	battle_state = BattleState.WAITING_FOR_TARGET
+
+func get_tile(pos: Vector2i) -> Node2D:
+	return get_node("Tiles/%d_%d" % [pos.x, pos.y])

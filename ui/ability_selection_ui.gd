@@ -1,6 +1,12 @@
 class_name AbilitySelectionUI extends Node2D
 
-func add_ability(name: String) -> void:
+signal ability_chosen(ability)
+
+func add_ability(ability: Ability) -> void:
 	var button: = Button.new()
-	button.text = name
+	button.text = ability.name
+	button.pressed.connect(_on_ability_pressed.bind(ability))
 	$VBoxContainer.add_child(button)
+
+func _on_ability_pressed(ability: Ability) -> void:
+	ability_chosen.emit(ability)

@@ -1,9 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://r6trfkjdiv61"]
 
-[ext_resource type="PackedScene" uid="uid://drkku2lhk47ok" path="res://tiles/tile.tscn" id="1_mrlnc"]
+[ext_resource type="PackedScene" uid="uid://drkku2lhk47ok" path="res://world/tile.tscn" id="1_mrlnc"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="2_wdwp0"]
 
 [node name="GrassTile" instance=ExtResource("1_mrlnc")]
 texture = ExtResource("2_wdwp0")
 region_enabled = true
 region_rect = Rect2(114, 15, 122, 104)
+
+[node name="Label" type="Label" parent="." index="4"]
+offset_right = 40.0
+offset_bottom = 23.0

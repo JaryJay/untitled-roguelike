@@ -10,7 +10,7 @@ var is_selected: bool = false : set = _set_is_selected
 func _input(event):
 	if is_hovered and event.is_action_pressed("primary"):
 		is_clicked = true
-	elif is_clicked and event.is_action_released("primary"):
+	elif is_hovered and is_clicked and event.is_action_released("primary"):
 		is_clicked = false
 		clicked.emit()
 	elif event.is_action_released("primary"):

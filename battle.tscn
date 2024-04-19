@@ -1,12 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwnu772oqo3u1"]
+[gd_scene load_steps=5 format=3 uid="uid://cwnu772oqo3u1"]
 
 [ext_resource type="Script" path="res://battle.gd" id="1_vufjn"]
 [ext_resource type="PackedScene" uid="uid://bxx15og0dptm2" path="res://ui/panel.tscn" id="2_1lyle"]
+[ext_resource type="Script" path="res://camera.gd" id="2_wpdub"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nxi80"]
+fractal_octaves = 4
+domain_warp_enabled = true
+domain_warp_fractal_octaves = 2
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_vufjn")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." groups=["cameras"]]
+script = ExtResource("2_wpdub")
+decay_rate = 8.0
+noise = SubResource("FastNoiseLite_nxi80")
+noise_shake_speed = 1000.0
 
 [node name="Tiles" type="Node2D" parent="."]
 editor_description = "When the battle is created, the tiles will be auto generated and placed under this node."

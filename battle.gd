@@ -78,6 +78,7 @@ func _on_tile_click(pos: Vector2i) -> void:
 		
 		for event: Event in events:
 			event.perform(map)
+			event.visual_effects(get_tree())
 		
 		selected_ability = null
 		

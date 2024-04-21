@@ -11,11 +11,8 @@ var is_selected: bool = false : set = _set_is_selected
 
 func _ready():
 	super()
-	var move_a: = MoveAbility.new()
-	move_a.name = "Move"
-	var stab_a: = DamageAbility.new()
-	stab_a.name = "Stab"
-	stab_a.damage = 2
+	var move_a: = MoveAbility.new("Move", 1)
+	var stab_a: = DamageAbility.new("Stab", 1, 2)
 	
 	abilities = [move_a, stab_a]
 	

@@ -4,13 +4,13 @@ const tile_width: = 114
 const tile_height: = 97
 
 const grass_tile_scene: = preload("res://world/grass_tile.tscn")
-const ordinary_unit_scene: = preload("res://actors/mercs/ordinary_mercenary.tscn")
-const ordinary_enemy_scene: = preload("res://actors/enemies/ordinary_enemy.tscn")
+const ally_scene: = preload("res://actors/allies/ally.tscn")
+const enemy_scene: = preload("res://actors/enemies/enemy.tscn")
 
 enum BattleState { PLAYER_TURN, WAITING_FOR_TARGET, ENEMY_TURN }
 
 @onready var tiles: = $Tiles
-@onready var units: = $Units
+@onready var units: = $Units	
 
 var map: Map = Map.new()
 
@@ -21,13 +21,13 @@ var battle_state: BattleState = BattleState.PLAYER_TURN
 
 func _ready() -> void:
 	_generate_tiles()
-	add_ally_to(1, 0)
-	add_ally_to(2, 3)
-	add_enemy_to(7, 2)
+	add_ally_to(1, 2)
+	add_ally_to(2, 2)
+	add_enemy_to(4, 2)
 
 func _generate_tiles() -> void:
-	for row: int in range(5):
-		for col: int in range(12):
+	for row: int in range(4):
+		for col: int in range(8):
 			var tile: Tile = grass_tile_scene.instantiate()
 			tile.name = "%d_%d" % [col, row]
 			tile.position.x = col * tile_width * 0.75
@@ -41,7 +41,7 @@ func add_ally_to(x: int, y: int) -> void:
 	var pos: = Vector2i(x, y)
 	var tile: = get_tile(pos)
 	
-	var unit: Ally = ordinary_unit_scene.instantiate()
+	var unit: Ally = ally_scene.instantiate()
 	units.add_child(unit)
 	unit.global_position = tile.global_position
 	unit.pos = pos
@@ -53,11 +53,11 @@ func add_enemy_to(x: int, y: int) -> void:
 	var pos: = Vector2i(x, y)
 	var tile: = get_tile(pos)
 	
-	var enemy = ordinary_enemy_scene.instantiate()
-	units.add_child(enemy)
-	enemy.global_position = tile.global_position
-	enemy.pos = pos
-	map.add_unit(pos, enemy)
+	var unit = enemy_scene.instantiate()
+	units.add_child(unit)
+	unit.global_position = tile.global_position
+	unit.pos = pos
+	map.add_unit(pos, unit)
 
 func _on_tile_click(pos: Vector2i) -> void:
 	if battle_state == BattleState.ENEMY_TURN: return

@@ -1,5 +1,8 @@
 class_name Unit extends Node2D
 
+signal health_changed(new, old, source)
+signal health_depleted(source)
+
 var items: Array[Item] = []
 var abilities: Array[Ability] = []
 var pos: Vector2i
@@ -8,3 +11,14 @@ var pos: Vector2i
 
 func _ready() -> void:
 	add_to_group("units")
+	$HealthLabel/Label.text = str(health)
+
+func change_health(new_health: int, source: Variant) -> void:
+	if health == new_health: return
+	
+	var old_health: = health
+	health = new_health
+	health_changed.emit(new_health, old_health, source)
+	
+	if health <= 0: health_depleted.emit(source)
+

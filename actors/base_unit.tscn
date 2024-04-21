@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://l6q8u6pv0fb1"]
+
+[ext_resource type="Script" path="res://actors/unit.gd" id="1_mg3lp"]
+[ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="3_s78t1"]
+[ext_resource type="Script" path="res://actors/health_label.gd" id="4_1r0am"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xo7xx"]
+font_size = 12
+
+[node name="BaseUnit" type="Node2D"]
+script = ExtResource("1_mg3lp")
+
+[node name="ActionsLeftLabel" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -57.0
+offset_right = 16.0
+offset_bottom = -34.0
+text = "2"
+
+[node name="HealthLabel" type="Sprite2D" parent="."]
+position = Vector2(42, 34)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_s78t1")
+region_enabled = true
+region_rect = Rect2(377, 89, 18, 29)
+
+[node name="Label" type="Label" parent="HealthLabel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -19.5
+offset_right = 8.0
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "5"
+label_settings = SubResource("LabelSettings_xo7xx")
+horizontal_alignment = 1
+script = ExtResource("4_1r0am")
+
+[connection signal="health_changed" from="." to="HealthLabel/Label" method="_on_health_changed"]

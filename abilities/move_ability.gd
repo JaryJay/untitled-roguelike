@@ -2,6 +2,10 @@ class_name MoveAbility extends Ability
 
 var range: = 1
 
+func _init(_name: StringName, _range: int) -> void:
+	name = _name
+	range = _range
+
 func use(unit: Unit, _map: Map, pos: Vector2i) -> Array[Event]:
 	var ev: = MoveEvent.new()
 	ev.source = unit

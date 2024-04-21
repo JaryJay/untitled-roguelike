@@ -1,18 +1,18 @@
-class_name DamageAbility extends Ability
+class_name HealAbility extends Ability
 
 var range: = 1
-var damage: = 1
+var health: = 1
 
-func _init(_name: StringName, _range: int, _damage: int) -> void:
+func _init(_name: StringName, _range: int, _health: int) -> void:
 	name = _name
 	range = _range
-	damage = _damage
+	health = _health
 
 func use(unit: Unit, map: Map, pos: Vector2i) -> Array[Event]:
-	var ev: = DamageEvent.new()
+	var ev: = HealEvent.new()
 	ev.source = unit
 	ev.target = map.get_unit(pos)
-	ev.damage = damage
+	ev.health = health
 	return [ev]
 
 func is_valid_target(unit: Unit, map: Map, pos: Vector2i) -> bool:

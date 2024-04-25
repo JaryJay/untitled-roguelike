@@ -5,14 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="2_fskjr"]
 [ext_resource type="PackedScene" uid="uid://db2rdlbvvowdm" path="res://ui/ability_selection_ui.tscn" id="3_3y2gf"]
 
-[node name="Ally" instance=ExtResource("1_2enbe")]
+[node name="Ally" groups=["units"] instance=ExtResource("1_2enbe")]
 script = ExtResource("1_8jh2j")
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="3"]
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
 texture = ExtResource("2_fskjr")
 offset = Vector2(15, -1)
 region_enabled = true
 region_rect = Rect2(35, 17, 69, 87)
 
-[node name="AbilitySelectionUI" parent="." index="4" instance=ExtResource("3_3y2gf")]
+[node name="AbilitySelectionUI" parent="." index="3" instance=ExtResource("3_3y2gf")]
 visible = false

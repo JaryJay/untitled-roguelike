@@ -4,8 +4,14 @@
 [ext_resource type="Script" path="res://actors/enemies/enemy.gd" id="2_08glt"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="2_8sj7y"]
 
-[node name="Enemy" instance=ExtResource("1_lspar")]
+[node name="Enemy" groups=["units"] instance=ExtResource("1_lspar")]
 script = ExtResource("2_08glt")
+
+[node name="ActionsLabel" type="Label" parent="." index="1"]
+offset_left = 24.0
+offset_top = -66.0
+offset_right = 64.0
+offset_bottom = -43.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3"]
 texture = ExtResource("2_8sj7y")

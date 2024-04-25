@@ -29,7 +29,8 @@ func add_unit(pos: Vector2i, unit: Unit) -> void:
 		return
 	_unit_map[pos] = unit
 	unit.pos = pos
-	unit.global_position = get_tile(pos).global_position
+	unit.move_smoothly_to(get_tile(pos).global_position)
+
 func remove_unit(pos: Vector2i) -> void:
 	_unit_map.erase(pos)
 
@@ -39,8 +40,8 @@ func get_positions_within_distance(pos: Vector2i, dist: int, include_valid_only:
 		for x: int in range(pos.x - dist, pos.x + dist + 1):
 			if include_valid_only and not _tile_map.has(Vector2i(x, y)):
 				continue
-			
-			result.append(Vector2i(x, y))
+			if distance_between(pos, Vector2i(x, y)) <= dist:
+				result.append(Vector2i(x, y))
 	return result
 
 func distance_between(pos1: Vector2i, pos2: Vector2i) -> int:

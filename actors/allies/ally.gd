@@ -5,8 +5,6 @@ signal ability_chosen(ability)
 @onready var ability_selection_ui: AbilitySelectionUI = $AbilitySelectionUI
 @onready var actions_left_label: Label = $ActionsLeftLabel
 
-var actions_left: int = 2 : set = _set_actions_left
-
 var is_selected: bool = false : set = _set_is_selected
 
 func _ready():
@@ -32,6 +30,7 @@ func _set_is_selected(val: bool) -> void:
 func _on_ability_chosen(ability: Ability) -> void:
 	ability_chosen.emit(ability)
 
+# override
 func _set_actions_left(val: int) -> void:
 	actions_left = val
 	actions_left_label.text = str(val)

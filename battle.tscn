@@ -63,7 +63,9 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Button" type="Button" parent="UI/Control/Panel/MarginContainer"]
+[node name="EndTurnButton" type="Button" parent="UI/Control/Panel/MarginContainer"]
 layout_mode = 2
 mouse_filter = 1
 text = "End Turn"
+
+[connection signal="pressed" from="UI/Control/Panel/MarginContainer/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

@@ -10,7 +10,7 @@ const enemy_scene: = preload("res://actors/enemies/enemy.tscn")
 enum BattleState { PLAYER_TURN, WAITING_FOR_TARGET, ENEMY_TURN }
 
 @onready var tiles: = $Tiles
-@onready var units: = $Units	
+@onready var units: = $Units
 
 var map: Map = Map.new()
 
@@ -19,11 +19,47 @@ var selected_ability: Ability = null
 var selected_tile: Tile = null
 var battle_state: BattleState = BattleState.PLAYER_TURN
 
+# For resolving enemy abilities
+var current_enemy: Enemy = null
+var enemies: Array[Enemy] = []
+var abilities_to_resolve: Array[Ability] = []
+var events_to_resolve: Array[Event] = []
+var waiting_for_resolve: = false
+
 func _ready() -> void:
 	_generate_tiles()
 	add_ally_to(1, 2)
 	add_ally_to(2, 2)
 	add_enemy_to(4, 2)
+	_on_turn_start()
+
+func _process(_delta) -> void:
+	if battle_state == BattleState.ENEMY_TURN:
+		process_enemies()
+
+func process_enemies() -> void:
+	if waiting_for_resolve: return
+	if events_to_resolve.size():
+		var tw: = create_tween()
+		waiting_for_resolve = true
+		var event: Event = events_to_resolve[0]
+		events_to_resolve.remove_at(0)
+		event.perform_with_tween(map, tw)
+		tw.tween_property(self, "waiting_for_resolve", false, 0)
+	elif abilities_to_resolve.size():
+		var ability: = abilities_to_resolve[0]
+		abilities_to_resolve.remove_at(0)
+		events_to_resolve = current_enemy.do_ability(ability, map)
+	elif enemies.size():
+		current_enemy = enemies[0]
+		enemies.remove_at(0)
+		abilities_to_resolve = current_enemy.next_abilities.duplicate()
+	else:
+		waiting_for_resolve = true
+		var tw: = create_tween()
+		tw.tween_interval(0.5)
+		tw.tween_property(self, "waiting_for_resolve", false, 0)
+		tw.tween_callback(_on_turn_start)
 
 func _generate_tiles() -> void:
 	for row: int in range(4):
@@ -124,3 +160,39 @@ func handle_ability_selection(ability: Ability) -> void:
 
 func get_tile(pos: Vector2i) -> Node2D:
 	return get_node("Tiles/%d_%d" % [pos.x, pos.y])
+
+func _on_turn_start() -> void:
+	print("It is your turn")
+	battle_state = BattleState.PLAYER_TURN
+	for unit: Unit in get_tree().get_nodes_in_group("units"):
+		unit.actions_left = unit.max_actions
+	
+	generate_enemy_turns()
+
+func _on_turn_end() -> void:
+	battle_state = BattleState.ENEMY_TURN
+	if selected_ally:
+		selected_ally.is_selected = false
+		selected_ally = null
+	selected_ability = null
+	print("You ended your turn")
+	do_enemy_turns()
+
+func _on_end_turn_button_pressed() -> void:
+	if not battle_state == BattleState.ENEMY_TURN:
+		_on_turn_end()
+
+func generate_enemy_turns() -> void:
+	for unit: Unit in get_tree().get_nodes_in_group("units"):
+		if not unit is Enemy: continue
+		var enemy: Enemy = unit
+		enemy.next_abilities.clear()
+		for _i in range(enemy.actions_left):
+			var rand_ability: Ability = enemy.abilities[0]
+			enemy.next_abilities.append(rand_ability)
+		enemy.update_ability_ui()
+
+func do_enemy_turns() -> void:
+	for unit: Unit in get_tree().get_nodes_in_group("units"):
+		if unit is Enemy:
+			enemies.append(unit)

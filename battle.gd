@@ -1,5 +1,8 @@
 class_name Battle extends Node2D
 
+signal victory
+signal defeat
+
 const tile_width: = 114
 const tile_height: = 97
 
@@ -55,11 +58,23 @@ func process_enemies() -> void:
 		enemies.remove_at(0)
 		abilities_to_resolve = current_enemy.next_abilities.duplicate()
 	else:
-		waiting_for_resolve = true
-		var tw: = create_tween()
-		tw.tween_interval(0.5)
-		tw.tween_property(self, "waiting_for_resolve", false, 0)
-		tw.tween_callback(_on_turn_start)
+		_on_enemy_turns_end()
+
+func _on_enemy_turns_end() -> void:
+	if not get_tree().get_nodes_in_group("units").any(func(u): return u is Enemy):
+		# If no enemies left...
+		victory.emit()
+		return
+	elif not get_tree().get_nodes_in_group("units").any(func(u): return u is Ally):
+		# If no allies left...
+		defeat.emit()
+		return
+	
+	waiting_for_resolve = true
+	var tw: = create_tween()
+	tw.tween_interval(0.5)
+	tw.tween_property(self, "waiting_for_resolve", false, 0)
+	tw.tween_callback(_on_turn_start)
 
 func _generate_tiles() -> void:
 	for row: int in range(4):

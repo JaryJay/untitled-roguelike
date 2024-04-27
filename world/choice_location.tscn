@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://x64b204bdl3"]
+
+[ext_resource type="PackedScene" uid="uid://bhpt5oidj2ory" path="res://world/location.tscn" id="1_7quw0"]
+
+[node name="ChoiceLocation" instance=ExtResource("1_7quw0")]
+
+[node name="Label" parent="." index="1"]
+text = "?"

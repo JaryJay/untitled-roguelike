@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://o2kx6r8ydvon"]
+
+[ext_resource type="PackedScene" uid="uid://bhpt5oidj2ory" path="res://world/location.tscn" id="1_e8gqi"]
+
+[node name="BattleLocation" instance=ExtResource("1_e8gqi")]
+
+[node name="Label" parent="." index="1"]
+text = "X"

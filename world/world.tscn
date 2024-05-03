@@ -1,29 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://hpwltn0cunhc"]
+[gd_scene load_steps=2 format=3 uid="uid://hpwltn0cunhc"]
 
-[ext_resource type="PackedScene" uid="uid://o2kx6r8ydvon" path="res://world/battle_location.tscn" id="1_054mj"]
 [ext_resource type="Script" path="res://world/world.gd" id="1_k2oep"]
-[ext_resource type="PackedScene" uid="uid://x64b204bdl3" path="res://world/choice_location.tscn" id="2_6tup2"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_k2oep")
+number_of_layers = 8
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Locations" type="Node2D" parent="."]
-
-[node name="BattleLocation" parent="Locations" instance=ExtResource("1_054mj")]
-
-[node name="ChoiceLocation" parent="Locations" instance=ExtResource("2_6tup2")]
-position = Vector2(-46, -387)
-
-[node name="BattleLocation2" parent="Locations" instance=ExtResource("1_054mj")]
-position = Vector2(-115, -200)
-
-[node name="BattleLocation3" parent="Locations" instance=ExtResource("1_054mj")]
-position = Vector2(91, -200)
-
-[node name="BattleLocation5" parent="Locations" instance=ExtResource("1_054mj")]
-position = Vector2(123, -402)
-
-[node name="BattleLocation4" parent="Locations" instance=ExtResource("1_054mj")]
-position = Vector2(-241, -389)

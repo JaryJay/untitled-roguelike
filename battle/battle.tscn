@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cwnu772oqo3u1"]
 
-[ext_resource type="Script" path="res://battle.gd" id="1_vufjn"]
+[ext_resource type="Script" path="res://battle/battle.gd" id="1_vufjn"]
 [ext_resource type="PackedScene" uid="uid://bxx15og0dptm2" path="res://ui/panel.tscn" id="2_1lyle"]
-[ext_resource type="Script" path="res://camera.gd" id="2_wpdub"]
+[ext_resource type="Script" path="res://battle/camera.gd" id="2_wpdub"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nxi80"]
 fractal_octaves = 4

@@ -3,7 +3,7 @@ class_name WorldGenerator extends Object
 const battle_location_scene: = preload("res://world/battle_location.tscn")
 
 @export var width: float = 500
-@export var vert_separation: float = 50
+@export var vert_separation: float = 100
 
 func generate_locations(num_layers: int) -> Array[Location]:
 	#print(get_possible_connections(0, 3, [0, 1, 2, 3]))
@@ -38,7 +38,7 @@ func generate_locations(num_layers: int) -> Array[Location]:
 		# Generate locations
 		for j: int in range(num_locs):
 			var location: = battle_location_scene.instantiate()
-			location.position.x = 1. * width / (num_locs + 1) + randf_range(-500, 500) # TODO
+			location.position.x = (j + 1) * width / (num_locs + 1) - width / 2
 			location.position.y = -i * vert_separation
 			all_locations.append(location)
 			current_layer.append(location)

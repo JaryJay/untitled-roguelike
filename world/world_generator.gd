@@ -6,17 +6,6 @@ const battle_location_scene: = preload("res://world/battle_location.tscn")
 @export var vert_separation: float = 100
 
 func generate_locations(num_layers: int) -> Array[Location]:
-	#print(get_possible_connections(0, 3, [0, 1, 2, 3]))
-	#print(get_possible_connections(1, 3, [0, 1, 2, 3]))
-	#print(get_possible_connections(2, 3, [0, 1, 2, 3]))
-	#print(get_possible_connections(0, 3, [0, 1, 2, 3, 4]))
-	#print(get_possible_connections(1, 3, [0, 1, 2, 3, 4]))
-	#print(get_possible_connections(2, 3, [0, 1, 2, 3, 4]))
-	print(get_possible_connections(0, 4, [0, 1, 2, 3]))
-	#print(get_possible_connections(1, 4, [0, 1, 2, 3]))
-	#print(get_possible_connections(2, 4, [0, 1, 2, 3]))
-	#print(get_possible_connections(3, 4, [0, 1, 2, 3]))
-	
 	var all_locations: Array[Location] = []
 	
 	var prev_layer: Array[Location] = []
@@ -44,10 +33,8 @@ func generate_locations(num_layers: int) -> Array[Location]:
 			current_layer.append(location)
 		
 		# Generate connections
-		for j: int in range(prev_layer.size()):
-			var loc: = prev_layer
-			var possible_connections: = get_possible_connections(j, prev_layer.size(), current_layer)
-			
+		if not prev_layer.is_empty():
+			connect_locations(prev_layer, current_layer)
 		
 		prev_layer = current_layer
 		current_layer = []
@@ -59,10 +46,28 @@ func connect_locations(prev_layer: Array[Location], current_layer: Array[Locatio
 	assert(absi(prev_layer.size() - current_layer.size()) <= 2, "Cannot connect layers.")
 	if prev_layer.size() < current_layer.size():
 		_connect_locations_variant1(prev_layer, current_layer)
+	else:
+		_connect_locations_variant2(prev_layer, current_layer)
 
+# When prev_layer.size() < current_layer.size()
 func _connect_locations_variant1(prev_layer: Array[Location], current_layer: Array[Location]) -> void:
-	for loc: Location in prev_layer:
-		pass
+	for i: int in prev_layer.size():
+		var possible_connections: = get_possible_connections(i, prev_layer.size(), current_layer)
+		prev_layer[i].connect_to(possible_connections.pick_random())
+	for i: int in current_layer.size():
+		if current_layer[i].unlocked_by.is_empty():
+			var possible_connections: = get_possible_connections(i, current_layer.size(), prev_layer)
+			possible_connections.pick_random().connect_to(current_layer[i])
+
+# When prev_layer.size() >= current_layer.size()
+func _connect_locations_variant2(prev_layer: Array[Location], current_layer: Array[Location]) -> void:
+	for i: int in prev_layer.size():
+		var possible_connections: = get_possible_connections(i, prev_layer.size(), current_layer)
+		prev_layer[i].connect_to(possible_connections.pick_random())
+	for i: int in current_layer.size():
+		if current_layer[i].unlocked_by.is_empty():
+			var possible_connections: = get_possible_connections(i, current_layer.size(), prev_layer)
+			possible_connections.pick_random().connect_to(current_layer[i])
 
 func get_possible_connections(index: int, layer_size: int, to: Array[Variant]) -> Array[Variant]:
 	var to_size: = to.size()

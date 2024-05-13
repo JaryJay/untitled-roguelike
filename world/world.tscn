@@ -4,9 +4,10 @@
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_k2oep")
-min_num_layers = 5
-max_num_layers = 9
+min_num_layers = 7
+max_num_layers = 12
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Locations" type="Node2D" parent="."]
+position = Vector2(0, 434)

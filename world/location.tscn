@@ -28,4 +28,6 @@ offset_bottom = 23.0
 disabled = true
 flat = true
 
+[node name="Lines" type="Node2D" parent="."]
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

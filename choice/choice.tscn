@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://brad2331bnw65"]
+
+[ext_resource type="Script" path="res://battle/battle.gd" id="1_dqvv0"]
+[ext_resource type="Script" path="res://battle/camera.gd" id="2_a10qm"]
+[ext_resource type="PackedScene" uid="uid://bxx15og0dptm2" path="res://ui/panel.tscn" id="3_0j5m0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nxi80"]
+fractal_octaves = 4
+domain_warp_enabled = true
+domain_warp_fractal_octaves = 2
+
+[node name="Choice" type="Node2D"]
+script = ExtResource("1_dqvv0")
+
+[node name="Camera" type="Camera2D" parent="." groups=["cameras"]]
+script = ExtResource("2_a10qm")
+decay_rate = 8.0
+noise = SubResource("FastNoiseLite_nxi80")
+noise_shake_speed = 1000.0
+
+[node name="Tiles" type="Node2D" parent="."]
+editor_description = "When the battle is created, the tiles will be auto generated and placed under this node."
+y_sort_enabled = true
+position = Vector2(-696, -346)
+scale = Vector2(1.5, 1.5)
+
+[node name="Units" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" parent="UI/Control" instance=ExtResource("3_0j5m0")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.851
+anchor_top = 0.902
+offset_left = 0.0799561
+offset_top = -0.160095
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 1
+grow_vertical = 1
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="EndTurnButton" type="Button" parent="UI/Control/Panel/MarginContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "End Turn"
+
+[connection signal="pressed" from="UI/Control/Panel/MarginContainer/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

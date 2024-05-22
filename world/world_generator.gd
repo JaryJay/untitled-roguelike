@@ -1,6 +1,7 @@
 class_name WorldGenerator extends Object
 
 const battle_location_scene: = preload("res://world/battle_location.tscn")
+const choice_location_scene: = preload("res://world/choice_location.tscn")
 
 @export var width: float = 500
 @export var vert_separation: float = 100
@@ -26,7 +27,7 @@ func generate_locations(num_layers: int) -> Array[Location]:
 		
 		# Generate locations
 		for j: int in range(num_locs):
-			var location: = battle_location_scene.instantiate()
+			var location: = generate_location()
 			location.position.x = (j + 1) * width / (num_locs + 1) - width / 2
 			location.position.y = -i * vert_separation
 			all_locations.append(location)
@@ -77,3 +78,9 @@ func get_possible_connections(index: int, layer_size: int, to: Array[Variant]) -
 	else:
 		var r: = index + (1 if to_size > layer_size else 0)
 		return to.slice(max(r - 1, 0), r + 1)
+
+func generate_location() -> Location:
+	var possibilities: Array[PackedScene] = [battle_location_scene, choice_location_scene]
+	var weights: Array[int] = [80, 20]
+	var index: = Random.weighted(weights)
+	return possibilities[index].instantiate() as Location

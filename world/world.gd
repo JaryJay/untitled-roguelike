@@ -1,6 +1,7 @@
 extends Node2D
 
 const battle_scene: = preload("res://battle/battle.tscn")
+const choice_scene: = preload("res://choice/choice.tscn")
 
 @export_range(1, 20) var min_num_layers: int
 @export_range(1, 20) var max_num_layers: int
@@ -35,11 +36,13 @@ func initialize() -> void:
 func _on_loc_pressed(loc: Location) -> void:
 	print("You selected location %s " % loc.name)
 	current_location = loc
-	#if loc is BattleLocation:
-	var battle: = battle_scene.instantiate()
-	hide()
-	get_tree().root.add_child(battle)
-	battle.victory.connect(_on_battle_victory.bind(battle))
+	if loc is BattleLocation:
+		var battle: = battle_scene.instantiate()
+		hide()
+		get_tree().root.add_child(battle)
+		battle.victory.connect(_on_battle_victory.bind(battle))
+	elif loc is ChoiceLocation:
+		var choice: = choice_scene.instantiate()
 
 func _on_battle_victory(battle: Battle) -> void:
 	battle.queue_free()

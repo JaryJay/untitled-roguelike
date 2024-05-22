@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://o2kx6r8ydvon"]
+[gd_scene load_steps=3 format=3 uid="uid://o2kx6r8ydvon"]
 
 [ext_resource type="PackedScene" uid="uid://bhpt5oidj2ory" path="res://world/location.tscn" id="1_e8gqi"]
+[ext_resource type="Script" path="res://world/battle_location.gd" id="2_mmv74"]
 
 [node name="BattleLocation" instance=ExtResource("1_e8gqi")]
+script = ExtResource("2_mmv74")
 
 [node name="Label" parent="." index="1"]
 text = "X"

@@ -16,6 +16,7 @@ func _ready() -> void:
 	#ability_selection_ui.ability_chosen.connect(_on_ability_chosen)
 	
 	_set_actions_left(actions_left)
+	super()
 
 func do_ability(ability: Ability, map: Map) -> Array[Event]:
 	if ability is MoveAbility:

@@ -1,0 +1,125 @@
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://chr68p3ktopt8"]
+
+[ext_resource type="Texture2D" uid="uid://ckknv2otkorx4" path="res://assets/ui/panel-border-015.png" id="1_tj5gw"]
+[ext_resource type="FontFile" uid="uid://nx2b4o3ct8ms" path="res://assets/Kameron-VariableFont_wght.ttf" id="2_jjpek"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e1kks"]
+load_path = "res://.godot/imported/panel-005.png-74edb1991b177ebd1c41c1369bac18a2.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_83frk"]
+texture = SubResource("CompressedTexture2D_e1kks")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+modulate_color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h3yrt"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k8ajh"]
+load_path = "res://.godot/imported/panel-005.png-74edb1991b177ebd1c41c1369bac18a2.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qnl3d"]
+texture = SubResource("CompressedTexture2D_k8ajh")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+modulate_color = Color(0.882353, 0.882353, 0.882353, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2enpr"]
+load_path = "res://.godot/imported/panel-005.png-74edb1991b177ebd1c41c1369bac18a2.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8gk7u"]
+texture = SubResource("CompressedTexture2D_2enpr")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oyu6a"]
+load_path = "res://.godot/imported/panel-005.png-74edb1991b177ebd1c41c1369bac18a2.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xmrxl"]
+texture = SubResource("CompressedTexture2D_oyu6a")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+modulate_color = Color(0.721569, 0.721569, 0.721569, 1)
+
+[sub_resource type="ImageTexture" id="ImageTexture_5lkyh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8emrg"]
+bg_color = Color(0.745098, 0.745098, 0.745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kvod"]
+bg_color = Color(0.854902, 0.854902, 0.854902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xewsh"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ixohl"]
+texture = ExtResource("1_tj5gw")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+region_rect = Rect2(0, 0, 96, 96)
+modulate_color = Color(0.439216, 0.439216, 0.439216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttgmp"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[resource]
+default_font = ExtResource("2_jjpek")
+default_font_size = 18
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/styles/disabled = SubResource("StyleBoxTexture_83frk")
+Button/styles/focus = SubResource("StyleBoxEmpty_h3yrt")
+Button/styles/hover = SubResource("StyleBoxTexture_qnl3d")
+Button/styles/normal = SubResource("StyleBoxTexture_8gk7u")
+Button/styles/pressed = SubResource("StyleBoxTexture_xmrxl")
+VScrollBar/icons/decrement = SubResource("ImageTexture_5lkyh")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_5lkyh")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_5lkyh")
+VScrollBar/icons/increment = SubResource("ImageTexture_5lkyh")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_5lkyh")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_5lkyh")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_8emrg")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_5kvod")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_xewsh")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_ixohl")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_ttgmp")

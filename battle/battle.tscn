@@ -1,13 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwnu772oqo3u1"]
+[gd_scene load_steps=12 format=3 uid="uid://cwnu772oqo3u1"]
 
 [ext_resource type="Script" path="res://battle/battle.gd" id="1_vufjn"]
 [ext_resource type="PackedScene" uid="uid://bxx15og0dptm2" path="res://ui/panel.tscn" id="2_1lyle"]
 [ext_resource type="Script" path="res://battle/camera.gd" id="2_wpdub"]
+[ext_resource type="Texture2D" uid="uid://bv1xgthgeu5px" path="res://assets/ui/panel-023.png" id="4_eh272"]
+[ext_resource type="Texture2D" uid="uid://n0yig300hu1w" path="res://assets/ui/panel-005.png" id="5_a7jox"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nxi80"]
 fractal_octaves = 4
 domain_warp_enabled = true
 domain_warp_fractal_octaves = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nnaw1"]
+texture = ExtResource("4_eh272")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p5rua"]
+load_path = "res://.godot/imported/panel-023.png-8c38e6619848aebe62282472f1ed0ce0.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_teipn"]
+texture = SubResource("CompressedTexture2D_p5rua")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+modulate_color = Color(0.913725, 0.913725, 0.913725, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wgevr"]
+load_path = "res://.godot/imported/panel-023.png-8c38e6619848aebe62282472f1ed0ce0.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7nf8x"]
+texture = SubResource("CompressedTexture2D_wgevr")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+modulate_color = Color(0.509804, 0.509804, 0.509804, 1)
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_vufjn")
@@ -38,34 +69,60 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Panel" parent="UI/Control" instance=ExtResource("2_1lyle")]
+[node name="NinePatchRect" parent="UI/Control" instance=ExtResource("2_1lyle")]
+self_modulate = Color(0, 0, 0, 0.392157)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.851
-anchor_top = 0.902
-offset_left = 0.0799561
-offset_top = -0.160095
+anchor_left = 0.822
+anchor_top = 0.87
 offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 1
 grow_vertical = 1
 mouse_filter = 1
+texture = ExtResource("4_eh272")
+region_rect = Rect2(0, 0, 96, 96)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
 
-[node name="EndTurnButton" type="Button" parent="UI/Control/Panel/MarginContainer"]
+[node name="NinePatchRectContainer" type="NinePatchRect" parent="UI/Control/NinePatchRect/MarginContainer"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+texture = ExtResource("5_a7jox")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="EndTurnButton" type="Button" parent="UI/Control/NinePatchRect/MarginContainer"]
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_nnaw1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_teipn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7nf8x")
 text = "End Turn"
 
-[connection signal="pressed" from="UI/Control/Panel/MarginContainer/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="UI/Control/NinePatchRect/MarginContainer/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

@@ -43,6 +43,9 @@ func _on_loc_pressed(loc: Location) -> void:
 		battle.victory.connect(_on_battle_victory.bind(battle))
 	elif loc is ChoiceLocation:
 		var choice: = choice_scene.instantiate()
+		hide()
+		get_tree().root.add_child(choice)
+		# TODO: Do something when user makes a choice
 
 func _on_battle_victory(battle: Battle) -> void:
 	battle.queue_free()

@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://brad2331bnw65"]
+[gd_scene load_steps=7 format=3 uid="uid://brad2331bnw65"]
 
-[ext_resource type="Script" path="res://battle/battle.gd" id="1_dqvv0"]
 [ext_resource type="Script" path="res://battle/camera.gd" id="2_a10qm"]
 [ext_resource type="PackedScene" uid="uid://bxx15og0dptm2" path="res://ui/panel.tscn" id="3_0j5m0"]
+[ext_resource type="PackedScene" uid="uid://r6trfkjdiv61" path="res://world/grass_tile.tscn" id="3_o7ttd"]
+[ext_resource type="Texture2D" uid="uid://bv1xgthgeu5px" path="res://assets/ui/panel-023.png" id="5_udku1"]
+[ext_resource type="Texture2D" uid="uid://ds08o54oxhplt" path="res://assets/ui/divider-fade-005.png" id="6_40xk7"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nxi80"]
 fractal_octaves = 4
@@ -10,7 +12,6 @@ domain_warp_enabled = true
 domain_warp_fractal_octaves = 2
 
 [node name="Choice" type="Node2D"]
-script = ExtResource("1_dqvv0")
 
 [node name="Camera" type="Camera2D" parent="." groups=["cameras"]]
 script = ExtResource("2_a10qm")
@@ -19,13 +20,14 @@ noise = SubResource("FastNoiseLite_nxi80")
 noise_shake_speed = 1000.0
 
 [node name="Tiles" type="Node2D" parent="."]
-editor_description = "When the battle is created, the tiles will be auto generated and placed under this node."
-y_sort_enabled = true
-position = Vector2(-696, -346)
-scale = Vector2(1.5, 1.5)
 
-[node name="Units" type="Node2D" parent="."]
-y_sort_enabled = true
+[node name="GrassTile" parent="Tiles" instance=ExtResource("3_o7ttd")]
+
+[node name="GrassTile2" parent="Tiles" instance=ExtResource("3_o7ttd")]
+position = Vector2(-84, 48)
+
+[node name="GrassTile3" parent="Tiles" instance=ExtResource("3_o7ttd")]
+position = Vector2(85, 49)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -39,17 +41,24 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Panel" parent="UI/Control" instance=ExtResource("3_0j5m0")]
+self_modulate = Color(0, 0, 0, 0.419608)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.851
-anchor_top = 0.902
-offset_left = 0.0799561
-offset_top = -0.160095
-offset_right = -8.0
-offset_bottom = -8.0
-grow_horizontal = 1
+anchor_left = 0.4
+anchor_top = 0.05
+anchor_right = 0.6
+anchor_bottom = 0.05
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 130.0
 grow_vertical = 1
 mouse_filter = 1
+texture = ExtResource("5_udku1")
+region_rect = Rect2(0, 0, 96, 96)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Control/Panel"]
 layout_mode = 1
@@ -63,9 +72,18 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="EndTurnButton" type="Button" parent="UI/Control/Panel/MarginContainer"]
+[node name="Label" type="Label" parent="UI/Control/Panel/MarginContainer"]
 layout_mode = 2
-mouse_filter = 1
-text = "End Turn"
+text = "Choose."
+horizontal_alignment = 1
 
-[connection signal="pressed" from="UI/Control/Panel/MarginContainer/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[node name="Fade1" type="Sprite2D" parent="UI/Control/Panel/MarginContainer"]
+position = Vector2(91, 66)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("6_40xk7")
+
+[node name="Fade2" type="Sprite2D" parent="UI/Control/Panel/MarginContainer"]
+position = Vector2(390, 66)
+rotation = 3.14159
+scale = Vector2(0.8, -0.8)
+texture = ExtResource("6_40xk7")

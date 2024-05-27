@@ -65,6 +65,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -31.0
+offset_right = 31.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
@@ -72,18 +74,23 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Label" type="Label" parent="UI/Control/Panel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/Control/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_40xk7")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UI/Control/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Choose."
 horizontal_alignment = 1
 
-[node name="Fade1" type="Sprite2D" parent="UI/Control/Panel/MarginContainer"]
-position = Vector2(91, 66)
-scale = Vector2(0.8, 0.8)
+[node name="TextureRect2" type="TextureRect" parent="UI/Control/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("6_40xk7")
-
-[node name="Fade2" type="Sprite2D" parent="UI/Control/Panel/MarginContainer"]
-position = Vector2(390, 66)
-rotation = 3.14159
-scale = Vector2(0.8, -0.8)
-texture = ExtResource("6_40xk7")
+stretch_mode = 5
+flip_h = true

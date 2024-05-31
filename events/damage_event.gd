@@ -5,6 +5,10 @@ var damage: int
 # might not use
 var damage_multiplier: int = 1
 
+var bleed: bool
+var burn: bool
+var freeze: bool
+
 func perform(map: Map) -> void:
 	var new_health: = target.health - maxi(0, damage * damage_multiplier - target.shield)
 	target.change_health(new_health, source)

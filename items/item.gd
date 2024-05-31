@@ -10,4 +10,4 @@ enum Rarity { COMMON, RARE, MYTHIC }
 var stack_count: int = 1
 
 func modify_event(event: Event) -> void:
-	pass
+	assert(false, "modify_event not implemented")

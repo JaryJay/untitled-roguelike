@@ -15,6 +15,9 @@ func _ready() -> void:
 	add_to_group("units")
 	$HealthLabel/Label.text = str(health)
 
+func add_ability(ability: Ability) -> void:
+	abilities.append(ability)
+
 func change_health(new_health: int, source: Variant) -> void:
 	if health == new_health: return
 	

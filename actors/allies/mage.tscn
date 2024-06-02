@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci13ukkrjm7lu"]
+
+[ext_resource type="PackedScene" uid="uid://cpw7ahjuep21x" path="res://actors/allies/ally.tscn" id="1_ommod"]
+[ext_resource type="Script" path="res://actors/allies/mage.gd" id="2_lu0by"]
+
+[node name="Mage" instance=ExtResource("1_ommod")]
+script = ExtResource("2_lu0by")

@@ -7,7 +7,7 @@ const tile_width: = 114
 const tile_height: = 97
 
 const grass_tile_scene: = preload("res://world/grass_tile.tscn")
-const ally_scene: = preload("res://actors/allies/ally.tscn")
+const ally_scene: = preload("res://actors/allies/mage.tscn")
 const enemy_scene: = preload("res://actors/enemies/enemy.tscn")
 
 enum BattleState { PLAYER_TURN, WAITING_FOR_TARGET, ENEMY_TURN }

@@ -9,11 +9,6 @@ var is_selected: bool = false : set = _set_is_selected
 
 func _ready():
 	super()
-	var move_a: = MoveAbility.new("Move", 1)
-	var stab_a: = DamageAbility.new("Stab", 1, 2)
-	
-	abilities = [move_a, stab_a]
-	
 	for a: Ability in abilities:
 		ability_selection_ui.add_ability(a)
 	ability_selection_ui.ability_chosen.connect(_on_ability_chosen)

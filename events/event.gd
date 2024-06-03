@@ -1,5 +1,6 @@
 class_name Event extends RefCounted
 
+var processed: bool = false
 var source: Unit
 
 func perform_with_tween(map: Map, tw: Tween) -> void:

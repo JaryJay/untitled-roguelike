@@ -1,4 +1,4 @@
 class_name ItemTemplate extends Item
 
-func modify_event(event: Event) -> void:
+func modify_event_trigger(event: Event) -> void:
 	pass

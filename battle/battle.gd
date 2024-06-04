@@ -39,21 +39,33 @@ func _ready() -> void:
 func _process(_delta) -> void:
 	if battle_state == BattleState.ENEMY_TURN:
 		process_enemies()
-
-func process_enemies() -> void:
+	
+	if abilities_to_resolve.size():
+		var ability: = abilities_to_resolve[0]
+		abilities_to_resolve.remove_at(0)
+		events_to_resolve.append_array(current_enemy.do_ability(ability, map))
+	
 	if waiting_for_resolve: return
+	
 	if events_to_resolve.size():
-		var tw: = create_tween()
 		waiting_for_resolve = true
 		var event: Event = events_to_resolve[0]
 		events_to_resolve.remove_at(0)
-		event.perform_with_tween(map, tw)
+		event.perform(map)
+		event.visual_effects(get_tree())
+		
+		var tw: = create_tween()
+		tw.tween_interval(0.1)
 		tw.tween_property(self, "waiting_for_resolve", false, 0)
-	elif abilities_to_resolve.size():
-		var ability: = abilities_to_resolve[0]
-		abilities_to_resolve.remove_at(0)
-		events_to_resolve = current_enemy.do_ability(ability, map)
-	elif enemies.size():
+	
+	for unit: Unit in get_tree().get_nodes_in_group("units"):
+		if unit.health <= 0:
+			print("Unit died: %s" % unit.name)
+			map.remove_unit(unit.pos)
+			unit.queue_free()
+
+func process_enemies() -> void:
+	if enemies.size():
 		current_enemy = enemies[0]
 		enemies.remove_at(0)
 		abilities_to_resolve = current_enemy.next_abilities.duplicate()
@@ -69,6 +81,8 @@ func _on_enemy_turns_end() -> void:
 		# If no allies left...
 		defeat.emit()
 		return
+	
+	if waiting_for_resolve: return
 	
 	waiting_for_resolve = true
 	var tw: = create_tween()
@@ -124,21 +138,10 @@ func _on_tile_click(pos: Vector2i) -> void:
 		var events: = selected_ability.use(selected_ally, map, pos)
 		
 		for event: Event in events:
-			for item: Item in selected_ally.items:
-				item.modify_event(event)
-		
-		for event: Event in events:
-			event.perform(map)
-			event.visual_effects(get_tree())
+			events_to_resolve.append(event)
 		
 		selected_ally.actions_left -= 1
 		selected_ability = null
-		
-		for unit: Unit in get_tree().get_nodes_in_group("units"):
-			if unit.health <= 0:
-				print("Unit died: %s" % unit.name)
-				map.remove_unit(unit.pos)
-				unit.queue_free()
 		
 		battle_state = BattleState.PLAYER_TURN
 		

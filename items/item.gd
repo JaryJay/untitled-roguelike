@@ -9,5 +9,5 @@ enum Rarity { COMMON, RARE, MYTHIC }
 
 var stack_count: int = 1
 
-func modify_event(event: Event) -> void:
-	assert(false, "modify_event not implemented")
+func modify_event_trigger(event_trigger: EventTrigger) -> void:
+	assert(false, "modify_event_trigger not implemented")

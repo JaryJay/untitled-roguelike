@@ -35,3 +35,6 @@ func move_smoothly_to(pos: Vector2) -> void:
 	tw.tween_property(self, "global_position", pos, .2) \
 		.set_ease(Tween.EASE_IN_OUT) \
 		.set_trans(Tween.TRANS_QUAD)
+
+func rand() -> float:
+	return randf()

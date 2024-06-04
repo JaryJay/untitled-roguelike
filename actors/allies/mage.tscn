@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci13ukkrjm7lu"]
+[gd_scene load_steps=4 format=3 uid="uid://cdk22p1yo8o67"]
 
-[ext_resource type="PackedScene" uid="uid://cpw7ahjuep21x" path="res://actors/allies/ally.tscn" id="1_ommod"]
-[ext_resource type="Script" path="res://actors/allies/mage.gd" id="2_lu0by"]
+[ext_resource type="PackedScene" uid="uid://cpw7ahjuep21x" path="res://actors/allies/ally.tscn" id="1_jm100"]
+[ext_resource type="Script" path="res://actors/allies/mage.gd" id="2_wq0jb"]
+[ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="3_4heto"]
 
-[node name="Mage" instance=ExtResource("1_ommod")]
-script = ExtResource("2_lu0by")
+[node name="Mage" instance=ExtResource("1_jm100")]
+script = ExtResource("2_wq0jb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="3"]
+texture = ExtResource("3_4heto")
+offset = Vector2(15, -1)
+region_enabled = true
+region_rect = Rect2(35, 17, 69, 87)

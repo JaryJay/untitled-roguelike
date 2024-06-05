@@ -3,7 +3,8 @@ class_name HealAbility extends Ability
 var range: = 1
 var health: = 1
 
-func _init(_name: StringName, _range: int, _health: int) -> void:
+func _init(_cost: int, _name: StringName, _range: int, _health: int) -> void:
+	super(_cost)
 	name = _name
 	range = _range
 	health = _health

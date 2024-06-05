@@ -5,9 +5,9 @@ var next_abilities: Array[Ability] = []
 @onready var actions_label = $ActionsLabel
 
 func _ready() -> void:
-	var move_a: = MoveAbility.new("Move", 1)
-	var shank_a: = DamageAbility.new("Shank", 1, 2)
-	var heal_a: = HealAbility.new("Heal", 1, 2)
+	var move_a: = MoveAbility.new(1, "Move", 1)
+	var shank_a: = DamageAbility.new(1, "Shank", 1, 2)
+	var heal_a: = HealAbility.new(1, "Heal", 1, 2)
 	
 	abilities = [move_a, shank_a, heal_a]
 	

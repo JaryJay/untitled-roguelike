@@ -3,7 +3,8 @@ class_name DamageAbility extends Ability
 var range: = 1
 var damage: = 1
 
-func _init(_name: StringName, _range: int, _damage: int) -> void:
+func _init(_cost: int, _name: StringName, _range: int, _damage: int) -> void:
+	super(_cost)
 	name = _name
 	range = _range
 	damage = _damage

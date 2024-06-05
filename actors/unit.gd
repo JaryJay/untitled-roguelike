@@ -8,8 +8,8 @@ var abilities: Array[Ability] = []
 var pos: Vector2i
 @export_range(0, 200) var health: int = 5
 @export_range(-200, 200) var shield: int = 0
-@export_range(0, 20) var max_actions: int = 2
-var actions_left: int = 2 : set = _set_actions_left
+@export_range(0, 20) var max_actions: int = 3
+var actions_left: int = 3 : set = _set_actions_left
 
 func _ready() -> void:
 	add_to_group("units")

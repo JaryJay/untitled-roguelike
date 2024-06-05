@@ -1,13 +1,11 @@
 ## An intermediate object used when items affect an event
 class_name EventTrigger
 
-var source: Unit
 var pre_event_list: Array[Event]
 var event: Event
 var post_event_list: Array[Event]
 
-func _init(s: Unit, e: Event) -> void:
-	source = s
+func _init(e: Event) -> void:
 	event = e
 
 func add_pre_event(e: Event) -> void:
@@ -26,3 +24,6 @@ func finalize_into_event_list() -> Array[Event]:
 	res.append_array(post_event_list)
 	
 	return res
+
+func source() -> Unit:
+	return event.source

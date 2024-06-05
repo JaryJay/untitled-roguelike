@@ -40,24 +40,46 @@ func _process(_delta) -> void:
 	if battle_state == BattleState.ENEMY_TURN:
 		process_enemies()
 	
-	if abilities_to_resolve.size():
-		var ability: = abilities_to_resolve[0]
-		abilities_to_resolve.remove_at(0)
-		events_to_resolve.append_array(current_enemy.do_ability(ability, map))
+	if not events_to_resolve.is_empty():
+		process_events()
+	elif not abilities_to_resolve.is_empty():
+		process_abilities()
+	remove_dead_units()
+
+func process_abilities() -> void:
+	if abilities_to_resolve.is_empty(): return
 	
+	var ability: = abilities_to_resolve[0]
+	abilities_to_resolve.remove_at(0)
+	events_to_resolve.append_array(current_enemy.do_ability(ability, map))
+
+func process_events() -> void:
 	if waiting_for_resolve: return
+	if events_to_resolve.is_empty(): return
 	
-	if events_to_resolve.size():
+	var event: Event = events_to_resolve[0]
+	events_to_resolve.remove_at(0)
+	
+	if (event.processed):
 		waiting_for_resolve = true
-		var event: Event = events_to_resolve[0]
-		events_to_resolve.remove_at(0)
 		event.perform(map)
 		event.visual_effects(get_tree())
 		
 		var tw: = create_tween()
 		tw.tween_interval(0.1)
 		tw.tween_property(self, "waiting_for_resolve", false, 0)
-	
+	else:
+		var event_trigger: = EventTrigger.new(event)
+		
+		for unit: Unit in get_tree().get_nodes_in_group("units"):
+			event_trigger = unit.item_collection.modify_event_trigger(event_trigger)
+		
+		event_trigger.event.processed = true
+		var new_events_to_resolve = event_trigger.finalize_into_event_list()
+		new_events_to_resolve.append_array(events_to_resolve)
+		events_to_resolve = new_events_to_resolve
+
+func remove_dead_units() -> void:
 	for unit: Unit in get_tree().get_nodes_in_group("units"):
 		if unit.health <= 0:
 			print("Unit died: %s" % unit.name)
@@ -140,7 +162,7 @@ func _on_tile_click(pos: Vector2i) -> void:
 		for event: Event in events:
 			events_to_resolve.append(event)
 		
-		selected_ally.actions_left -= 1
+		selected_ally.actions_left -= selected_ability.cost
 		selected_ability = null
 		
 		battle_state = BattleState.PLAYER_TURN
@@ -173,6 +195,8 @@ func handle_unit_selection(pos: Vector2i) -> void:
 		selected_tile.is_selected = true
 
 func handle_ability_selection(ability: Ability) -> void:
+	if selected_ally.actions_left < ability.cost:
+		return
 	selected_ability = ability
 	battle_state = BattleState.WAITING_FOR_TARGET
 

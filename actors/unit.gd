@@ -3,7 +3,8 @@ class_name Unit extends Node2D
 signal health_changed(new, old, source)
 signal health_depleted(source)
 
-var items: Array[Item] = []
+var item_collection: = ItemCollection.new()
+
 var abilities: Array[Ability] = []
 var pos: Vector2i
 @export_range(0, 200) var health: int = 5

@@ -12,9 +12,12 @@ var pos: Vector2i
 @export_range(0, 20) var max_actions: int = 3
 var actions_left: int = 3 : set = _set_actions_left
 
+@onready var actions_left_label: = $ActionsLeftLabel
+
 func _ready() -> void:
 	add_to_group("units")
 	$HealthLabel/Label.text = str(health)
+	_set_actions_left(actions_left)
 
 func add_ability(ability: Ability) -> void:
 	abilities.append(ability)
@@ -30,6 +33,7 @@ func change_health(new_health: int, source: Variant) -> void:
 
 func _set_actions_left(val: int) -> void:
 	actions_left = val
+	actions_left_label.text = str(val)
 
 func move_smoothly_to(pos: Vector2) -> void:
 	var tw: = create_tween()

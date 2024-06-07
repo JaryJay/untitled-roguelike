@@ -4,19 +4,10 @@ var next_abilities: Array[Ability] = []
 
 @onready var actions_label = $ActionsLabel
 
-func _ready() -> void:
-	var move_a: = MoveAbility.new(1, "Move", 1)
-	var shank_a: = DamageAbility.new(1, "Shank", 1, 2)
-	var heal_a: = HealAbility.new(1, "Heal", 1, 2)
-	
-	abilities = [move_a, shank_a, heal_a]
-	
-	#for a: Ability in abilities:
-		#ability_selection_ui.add_ability(a)
-	#ability_selection_ui.ability_chosen.connect(_on_ability_chosen)
-	
-	_set_actions_left(actions_left)
-	super()
+func _enter_tree() -> void:
+	add_ability(MoveAbility.new(1, "Move", 1))
+	add_ability(DamageAbility.new(1, "Shank", 1, 2))
+	add_ability(HealAbility.new(1, "Heal", 1, 2))
 
 func do_ability(ability: Ability, map: Map) -> Array[Event]:
 	if ability is MoveAbility:

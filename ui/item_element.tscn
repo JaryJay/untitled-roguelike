@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw7i4hcplxjlw"]
+
+[ext_resource type="Texture2D" uid="uid://cuvlt1mt8x4ce" path="res://assets/ui/panel-transparent-border-025.png" id="1_spbmi"]
+[ext_resource type="Script" path="res://ui/item_element.gd" id="2_2e1rh"]
+
+[node name="ItemElement" type="Button"]
+offset_left = -72.0
+offset_top = -72.0
+offset_right = 72.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+script = ExtResource("2_2e1rh")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_spbmi")
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

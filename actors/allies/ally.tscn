@@ -9,3 +9,4 @@ script = ExtResource("1_8jh2j")
 
 [node name="AbilitySelectionUI" parent="." index="2" instance=ExtResource("3_3y2gf")]
 visible = false
+z_index = 10

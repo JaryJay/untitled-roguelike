@@ -1,19 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://cw7i4hcplxjlw"]
+[gd_scene load_steps=6 format=3 uid="uid://cw7i4hcplxjlw"]
 
 [ext_resource type="Texture2D" uid="uid://cuvlt1mt8x4ce" path="res://assets/ui/panel-transparent-border-025.png" id="1_spbmi"]
 [ext_resource type="Script" path="res://ui/item_element.gd" id="2_2e1rh"]
+[ext_resource type="Texture2D" uid="uid://rdlgmu22b2ut" path="res://assets/ui/panel-transparent-border-015.png" id="2_mhf1w"]
+[ext_resource type="Texture2D" uid="uid://ctuho55a46oom" path="res://assets/ui/panel-transparent-border-029.png" id="3_4r5jy"]
+[ext_resource type="Texture2D" uid="uid://cnkou2k4bxdws" path="res://icon.svg" id="5_7osh6"]
 
-[node name="ItemElement" type="Button"]
-offset_left = -72.0
-offset_top = -72.0
-offset_right = 72.0
-offset_bottom = 72.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
+[node name="ItemElement" type="AspectRatioContainer"]
+offset_right = 163.0
+offset_bottom = 163.0
 script = ExtResource("2_2e1rh")
+backgrounds = Array[Texture2D]([ExtResource("2_mhf1w"), ExtResource("3_4r5jy"), ExtResource("1_spbmi")])
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,10 +30,16 @@ patch_margin_top = 48
 patch_margin_right = 48
 patch_margin_bottom = 48
 
-[node name="TextureRect" type="TextureRect" parent="NinePatchRect"]
+[node name="TextureRect" type="TextureRect" parent="Button/NinePatchRect"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("5_7osh6")
+expand_mode = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

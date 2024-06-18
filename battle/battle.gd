@@ -110,9 +110,13 @@ func _on_enemy_turns_end() -> void:
 		battle_state = BattleState.BEFORE_VICTORY
 		var choose_item_dialog: ChooseItemDialog = load("res://ui/dialogs/choose_item_dialog.tscn").instantiate()
 		get_tree().root.add_child(choose_item_dialog)
-		choose_item_dialog.item_chosen.connect(func():
+		choose_item_dialog.init_random()
+		choose_item_dialog.item_chosen.connect(func(item):
 			battle_state = BattleState.TRANSITION_TO_WORLD
 			victory.emit()
+			print("YAY")
+			print("You selected item %s" % item.name)
+			choose_item_dialog.queue_free()
 		)
 		return
 	elif not get_tree().get_nodes_in_group("units").any(func(u): return u is Ally):

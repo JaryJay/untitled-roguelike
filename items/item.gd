@@ -1,6 +1,6 @@
 class_name Item extends Resource
 
-enum Rarity { COMMON, RARE, MYTHIC }
+enum Rarity { UNDEFINED = -1, COMMON, RARE, MYTHIC }
 
 var owner: Unit
 

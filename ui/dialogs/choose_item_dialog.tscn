@@ -89,9 +89,19 @@ offset_right = 423.0
 offset_bottom = 134.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
+mouse_filter = 1
 texture = ExtResource("4_pfqqv")
 patch_margin_left = 32
 patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 300
+alignment = 1

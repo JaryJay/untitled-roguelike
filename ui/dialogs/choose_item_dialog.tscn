@@ -1,13 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://chuwgqwfqolrl"]
+[gd_scene load_steps=7 format=3 uid="uid://chuwgqwfqolrl"]
 
 [ext_resource type="PackedScene" uid="uid://bxx15og0dptm2" path="res://ui/panel.tscn" id="1_jl2m7"]
 [ext_resource type="Script" path="res://ui/dialogs/choose_item_dialog.gd" id="1_q6cw4"]
+[ext_resource type="PackedScene" uid="uid://bpvoktvh4sjkk" path="res://post_processing/vignette.tscn" id="2_6k4p5"]
 [ext_resource type="Texture2D" uid="uid://bv1xgthgeu5px" path="res://assets/ui/panel-023.png" id="2_se4in"]
 [ext_resource type="Texture2D" uid="uid://ds08o54oxhplt" path="res://assets/ui/divider-fade-005.png" id="3_jmnng"]
 [ext_resource type="Texture2D" uid="uid://tvwqc6k6o0xb" path="res://assets/ui/panel-transparent-center-027.png" id="4_pfqqv"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_q6cw4")
+
+[node name="Vignette" parent="." instance=ExtResource("2_6k4p5")]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -86,6 +89,7 @@ offset_right = 423.0
 offset_bottom = 134.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 texture = ExtResource("4_pfqqv")
 patch_margin_left = 32
 patch_margin_top = 32

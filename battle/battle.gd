@@ -10,7 +10,13 @@ const grass_tile_scene: = preload("res://world/grass_tile.tscn")
 const ally_scene: = preload("res://actors/allies/mage.tscn")
 const enemy_scene: = preload("res://actors/enemies/enemy.tscn")
 
-enum BattleState { PLAYER_TURN, WAITING_FOR_TARGET, ENEMY_TURN }
+enum BattleState {
+	PLAYER_TURN,
+	WAITING_FOR_TARGET,
+	ENEMY_TURN,
+	BEFORE_VICTORY,
+	TRANSITION_TO_WORLD,
+}
 
 @onready var tiles: = $Tiles
 @onready var units: = $Units
@@ -37,6 +43,9 @@ func _ready() -> void:
 	_on_turn_start()
 
 func _process(_delta) -> void:
+	if battle_state == BattleState.BEFORE_VICTORY \
+		or battle_state == BattleState.TRANSITION_TO_WORLD:
+		return
 	if battle_state == BattleState.ENEMY_TURN:
 		process_enemies()
 	
@@ -97,7 +106,14 @@ func process_enemies() -> void:
 func _on_enemy_turns_end() -> void:
 	if not get_tree().get_nodes_in_group("units").any(func(u): return u is Enemy):
 		# If no enemies left...
-		victory.emit()
+		#victory.emit()
+		battle_state = BattleState.BEFORE_VICTORY
+		var choose_item_dialog: ChooseItemDialog = load("res://ui/dialogs/choose_item_dialog.tscn").instantiate()
+		get_tree().root.add_child(choose_item_dialog)
+		choose_item_dialog.item_chosen.connect(func():
+			battle_state = BattleState.TRANSITION_TO_WORLD
+			victory.emit()
+		)
 		return
 	elif not get_tree().get_nodes_in_group("units").any(func(u): return u is Ally):
 		# If no allies left...

@@ -7,7 +7,7 @@ var is_hovered: bool = false : set = _set_is_hovered
 var is_clicked: bool = false : set = _set_is_clicked
 var is_selected: bool = false : set = _set_is_selected
 
-func _input(event):
+func _unhandled_input(event):
 	if is_hovered and event.is_action_pressed("primary"):
 		is_clicked = true
 	elif is_hovered and is_clicked and event.is_action_released("primary"):

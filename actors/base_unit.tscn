@@ -44,5 +44,6 @@ script = ExtResource("4_1r0am")
 
 [node name="AbilitySelectionUI" parent="." instance=ExtResource("4_mpy2v")]
 visible = false
+position = Vector2(76, 0)
 
 [connection signal="health_changed" from="." to="HealthLabel/Label" method="_on_health_changed"]

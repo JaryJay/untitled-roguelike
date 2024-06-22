@@ -198,12 +198,19 @@ func _on_tile_click(pos: Vector2i) -> void:
 			selected_tile = null
 
 func handle_unit_selection(pos: Vector2i) -> void:
+	var prev_selected = selected_ally
+	
+	# Deselect everything
 	if selected_ally:
 		selected_ally.is_selected = false
 		selected_ally = null
 	if selected_tile:
 		selected_tile.is_selected = false
 		selected_tile = null
+	
+	# If user clicks the selected unit, we don't reselect it
+	if prev_selected and prev_selected.pos == pos:
+		return
 	
 	var unit: = map.get_unit(pos)
 	if not unit or not Team.is_player(unit.team) or not unit.has_actions_left():

@@ -7,5 +7,8 @@ z_index = 2
 script = ExtResource("1_1nvhc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = -1
+offset_top = -98.0
+offset_right = 64.0
+offset_bottom = 98.0
+alignment = 1

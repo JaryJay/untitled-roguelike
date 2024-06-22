@@ -13,7 +13,7 @@ func _ready():
 	ability_selection_ui.ability_chosen.connect(_on_ability_chosen)
 
 func has_actions_left() -> bool:
-	return actions_left >= 1
+	return actions_left > 0
 
 func _set_is_selected(val: bool) -> void:
 	is_selected = val

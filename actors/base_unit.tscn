@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://l6q8u6pv0fb1"]
+[gd_scene load_steps=6 format=3 uid="uid://l6q8u6pv0fb1"]
 
 [ext_resource type="Script" path="res://actors/unit.gd" id="1_mg3lp"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="3_s78t1"]
 [ext_resource type="Script" path="res://actors/health_label.gd" id="4_1r0am"]
+[ext_resource type="PackedScene" uid="uid://db2rdlbvvowdm" path="res://ui/ability_selection_ui.tscn" id="4_mpy2v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xo7xx"]
 font_size = 12
@@ -40,5 +41,8 @@ text = "5"
 label_settings = SubResource("LabelSettings_xo7xx")
 horizontal_alignment = 1
 script = ExtResource("4_1r0am")
+
+[node name="AbilitySelectionUI" parent="." instance=ExtResource("4_mpy2v")]
+visible = false
 
 [connection signal="health_changed" from="." to="HealthLabel/Label" method="_on_health_changed"]

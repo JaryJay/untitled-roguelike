@@ -5,6 +5,8 @@ signal health_depleted(source)
 
 var item_collection: = ItemCollection.new()
 
+@export var team: Team.s = Team.s.ALLY_PLAYER
+
 var abilities: Array[Ability] = []
 var pos: Vector2i
 @export_range(0, 200) var health: int = 5

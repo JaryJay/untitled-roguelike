@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpw7ahjuep21x"]
+[gd_scene load_steps=3 format=3 uid="uid://cpw7ahjuep21x"]
 
 [ext_resource type="PackedScene" uid="uid://l6q8u6pv0fb1" path="res://actors/base_unit.tscn" id="1_2enbe"]
 [ext_resource type="Script" path="res://actors/allies/ally.gd" id="1_8jh2j"]
-[ext_resource type="PackedScene" uid="uid://db2rdlbvvowdm" path="res://ui/ability_selection_ui.tscn" id="3_3y2gf"]
 
 [node name="Ally" groups=["units"] instance=ExtResource("1_2enbe")]
 script = ExtResource("1_8jh2j")
-
-[node name="AbilitySelectionUI" parent="." index="2" instance=ExtResource("3_3y2gf")]
-visible = false
-z_index = 10

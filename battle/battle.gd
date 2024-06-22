@@ -206,7 +206,7 @@ func handle_unit_selection(pos: Vector2i) -> void:
 		selected_tile = null
 	
 	var unit: = map.get_unit(pos)
-	if not unit or not unit is Ally or not unit.has_actions_left():
+	if not unit or not Team.is_player(unit.team) or not unit.has_actions_left():
 		return
 	else:
 		selected_ally = unit
@@ -229,7 +229,9 @@ func _on_turn_start() -> void:
 	for unit: Unit in get_tree().get_nodes_in_group("units"):
 		unit.actions_left = unit.max_actions
 	
-	generate_enemy_turns()
+	for unit: Unit in get_tree().get_nodes_in_group("units"):
+		if Team.is_ai(unit.team):
+			generate_ai_turn(unit)
 
 func _on_turn_end() -> void:
 	battle_state = BattleState.ENEMY_TURN
@@ -238,23 +240,22 @@ func _on_turn_end() -> void:
 		selected_ally = null
 	selected_ability = null
 	print("You ended your turn")
-	do_enemy_turns()
+	do_ai_turns()
 
 func _on_end_turn_button_pressed() -> void:
 	if not battle_state == BattleState.ENEMY_TURN:
 		_on_turn_end()
 
-func generate_enemy_turns() -> void:
-	for unit: Unit in get_tree().get_nodes_in_group("units"):
-		if not unit is Enemy: continue
-		var enemy: Enemy = unit
-		enemy.next_abilities.clear()
-		for _i in range(enemy.actions_left):
-			var rand_ability: Ability = enemy.abilities[0]
-			enemy.next_abilities.append(rand_ability)
-		enemy.update_ability_ui()
+func generate_ai_turn(unit: Unit) -> void:
+	print("Generating turn for %s" % unit.name)
+	unit.next_abilities.clear()
+	for i: int in range(unit.actions_left):
+		var rand_ability: Ability = unit.abilities[0]
+		
+		unit.next_abilities.append(rand_ability)
+	unit.update_ability_ui()
 
-func do_enemy_turns() -> void:
+func do_ai_turns() -> void:
 	for unit: Unit in get_tree().get_nodes_in_group("units"):
-		if unit is Enemy:
+		if Team.is_ai(unit.team):
 			enemies.append(unit)

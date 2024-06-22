@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://world/location.gd" id="1_87dvt"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="1_fybvw"]
 
-[node name="Location" type="Node2D"]
+[node name="Location" type="Node2D" groups=["locations"]]
 script = ExtResource("1_87dvt")
 
 [node name="Circle" type="Sprite2D" parent="."]

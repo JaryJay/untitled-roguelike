@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw51v6cjfjr2l"]
+
+[ext_resource type="Script" path="res://ui/status_effect_group_ui.gd" id="1_g5ro6"]
+[ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="1_o4ekk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81ok4"]
+atlas = ExtResource("1_o4ekk")
+region = Rect2(377, 89, 18, 29)
+filter_clip = true
+
+[node name="StatusEffectGroupUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_g5ro6")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -127.0
+offset_top = -16.0
+offset_bottom = 16.0
+alignment = 2
+
+[node name="BleedTexture" type="TextureRect" parent="VBoxContainer"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.65098)
+layout_mode = 2
+texture = SubResource("AtlasTexture_81ok4")
+
+[node name="Label" type="Label" parent="VBoxContainer/BleedTexture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 2

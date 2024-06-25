@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="2_wdwp0"]
 
 [node name="GrassTile" instance=ExtResource("1_mrlnc")]
+self_modulate = Color(1, 0.980392, 0.976471, 0.231373)
 texture = ExtResource("2_wdwp0")
 region_enabled = true
 region_rect = Rect2(114, 15, 122, 104)

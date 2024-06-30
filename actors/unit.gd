@@ -9,6 +9,8 @@ var item_collection: = ItemCollection.new()
 
 var abilities: Array[Ability] = []
 var pos: Vector2i
+
+var status_effect_group: = StatusEffectGroup.new()
 @export_range(0, 200) var health: int = 5
 @export_range(-200, 200) var shield: int = 0
 @export_range(0, 20) var max_actions: int = 3

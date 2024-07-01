@@ -1,6 +1,6 @@
 class_name ChooseItemDialog extends CanvasLayer
 
-signal item_chosen(item)
+signal item_chosen(item: Item)
 
 const item_element_scene: = preload("res://ui/item_element.tscn")
 

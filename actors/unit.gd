@@ -1,7 +1,7 @@
 class_name Unit extends Node2D
 
-signal health_changed(new, old, source)
-signal health_depleted(source)
+signal health_changed(new: int, old: int, source: Node2D)
+signal health_depleted(source: Node2D)
 
 var item_collection: = ItemCollection.new()
 

@@ -42,7 +42,7 @@ func _ready() -> void:
 	add_enemy_to(4, 2)
 	_on_turn_start()
 
-func _process(_delta) -> void:
+func _process(_delta: float) -> void:
 	if battle_state == BattleState.BEFORE_VICTORY \
 		or battle_state == BattleState.TRANSITION_TO_WORLD:
 		return
@@ -84,7 +84,7 @@ func process_events() -> void:
 			event_trigger = unit.item_collection.modify_event_trigger(event_trigger)
 		
 		event_trigger.event.processed = true
-		var new_events_to_resolve = event_trigger.finalize_into_event_list()
+		var new_events_to_resolve: = event_trigger.finalize_into_event_list()
 		new_events_to_resolve.append_array(events_to_resolve)
 		events_to_resolve = new_events_to_resolve
 
@@ -104,14 +104,14 @@ func process_enemies() -> void:
 		_on_enemy_turns_end()
 
 func _on_enemy_turns_end() -> void:
-	if not get_tree().get_nodes_in_group("units").any(func(u): return u is Enemy):
+	if not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return u is Enemy):
 		# If no enemies left...
 		#victory.emit()
 		battle_state = BattleState.BEFORE_VICTORY
 		var choose_item_dialog: ChooseItemDialog = load("res://ui/dialogs/choose_item_dialog.tscn").instantiate()
 		get_tree().root.add_child(choose_item_dialog)
 		choose_item_dialog.init_random()
-		choose_item_dialog.item_chosen.connect(func(item):
+		choose_item_dialog.item_chosen.connect(func(item: Item) -> void:
 			battle_state = BattleState.TRANSITION_TO_WORLD
 			victory.emit()
 			print("YAY")
@@ -119,7 +119,7 @@ func _on_enemy_turns_end() -> void:
 			choose_item_dialog.queue_free()
 		)
 		return
-	elif not get_tree().get_nodes_in_group("units").any(func(u): return u is Ally):
+	elif not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return u is Ally):
 		# If no allies left...
 		defeat.emit()
 		return
@@ -160,7 +160,7 @@ func add_enemy_to(x: int, y: int) -> void:
 	var pos: = Vector2i(x, y)
 	var tile: = get_tile(pos)
 	
-	var unit = enemy_scene.instantiate()
+	var unit: = enemy_scene.instantiate()
 	units.add_child(unit)
 	unit.global_position = tile.global_position
 	unit.pos = pos
@@ -198,7 +198,7 @@ func _on_tile_click(pos: Vector2i) -> void:
 			selected_tile = null
 
 func handle_unit_selection(pos: Vector2i) -> void:
-	var prev_selected = selected_ally
+	var prev_selected: = selected_ally
 	
 	# Deselect everything
 	if selected_ally:

@@ -1,12 +1,12 @@
 class_name Ally extends Unit
 
-signal ability_chosen(ability)
+signal ability_chosen(ability: Ability)
 
 @onready var ability_selection_ui: AbilitySelectionUI = $AbilitySelectionUI
 
 var is_selected: bool = false : set = _set_is_selected
 
-func _ready():
+func _ready() -> void:
 	super()
 	for a: Ability in abilities:
 		ability_selection_ui.add_ability(a)

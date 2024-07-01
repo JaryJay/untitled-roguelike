@@ -8,4 +8,4 @@ const all: Array[Item] = [
 static func random(rarity: Item.Rarity) -> Item:
 	if rarity == Item.Rarity.UNDEFINED:
 		return all.pick_random()
-	return all.filter(func(i: Item): return i.rarity == rarity).pick_random()
+	return all.filter(func(i: Item) -> bool: return i.rarity == rarity).pick_random()

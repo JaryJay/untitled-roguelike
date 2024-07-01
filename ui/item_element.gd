@@ -14,5 +14,5 @@ func init(_item: Item) -> void:
 	nine_patch_rect.texture = backgrounds[item.rarity]
 	texture_rect.texture = item.texture
 
-func _on_button_pressed():
+func _on_button_pressed() -> void:
 	pressed.emit()

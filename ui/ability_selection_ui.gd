@@ -1,6 +1,6 @@
 class_name AbilitySelectionUI extends Node2D
 
-signal ability_chosen(ability)
+signal ability_chosen(ability: Ability)
 
 @export var disabled: = true
 

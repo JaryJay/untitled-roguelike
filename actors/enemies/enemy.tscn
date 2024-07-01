@@ -7,7 +7,6 @@
 [node name="Enemy" groups=["units"] instance=ExtResource("1_lspar")]
 script = ExtResource("2_08glt")
 team = 20
-health = 2
 
 [node name="ActionsLabel" type="Label" parent="." index="1"]
 offset_left = 24.0

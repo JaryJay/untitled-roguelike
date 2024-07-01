@@ -11,7 +11,8 @@ var abilities: Array[Ability] = []
 var pos: Vector2i
 
 var status_effect_group: = StatusEffectGroup.new()
-@export_range(0, 200) var health: int = 5
+@export_range(0, 200) var max_health: int = 5
+var health: int = max_health
 @export_range(-200, 200) var shield: int = 0
 @export_range(0, 20) var max_actions: int = 3
 var actions_left: int = 3 : set = _set_actions_left

@@ -39,9 +39,9 @@ func _set_actions_left(val: int) -> void:
 	actions_left = val
 	actions_left_label.text = str(val)
 
-func move_smoothly_to(pos: Vector2) -> void:
+func move_smoothly_to(p: Vector2) -> void:
 	var tw: = create_tween()
-	tw.tween_property(self, "global_position", pos, .2) \
+	tw.tween_property(self, "global_position", p, .2) \
 		.set_ease(Tween.EASE_IN_OUT) \
 		.set_trans(Tween.TRANS_QUAD)
 

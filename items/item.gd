@@ -11,7 +11,7 @@ var owner: Unit
 
 var stack_count: int = 1
 
-func modify_event_trigger(event_trigger: EventTrigger) -> EventTrigger:
+func modify_event_trigger(_event_trigger: EventTrigger) -> EventTrigger:
 	assert(false, "modify_event_trigger not implemented")
 	return null
 

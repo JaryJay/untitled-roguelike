@@ -14,8 +14,6 @@ func generate_locations(num_layers: int) -> Array[Location]:
 	
 	# Procedurally generate locations
 	for i: int in range(1, num_layers + 1): # from 1 to num_layers, inclusive
-		var prev_num_locs: = prev_layer.size()
-		
 		# Decide number of locations
 		var num_locs: int
 		if i <= 3:

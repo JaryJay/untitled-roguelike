@@ -22,6 +22,7 @@ var actions_left: int = 3 : set = _set_actions_left
 func _ready() -> void:
 	add_to_group("units")
 	$HealthLabel/Label.text = str(health)
+	actions_left_label.text = str(actions_left)
 	_set_actions_left(actions_left)
 
 func add_ability(ability: Ability) -> void:
@@ -38,7 +39,8 @@ func change_health(new_health: int, source: Variant) -> void:
 
 func _set_actions_left(val: int) -> void:
 	actions_left = val
-	actions_left_label.text = str(val)
+	if is_node_ready():
+		actions_left_label.text = str(val)
 
 func move_smoothly_to(p: Vector2) -> void:
 	var tw: = create_tween()

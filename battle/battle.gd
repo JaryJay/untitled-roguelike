@@ -37,10 +37,21 @@ var waiting_for_resolve: = false
 
 func _ready() -> void:
 	_generate_tiles()
-	add_ally_to(1, 2)
-	add_ally_to(2, 2)
+	#add_ally_to(1, 2)
+	#add_ally_to(2, 2)
 	add_enemy_to(4, 2)
 	_on_turn_start()
+
+func init(roster: Roster) -> void:
+	for hero: Hero in roster.heroes():
+		var unit: Unit = hero.create_unit(ally_scene)
+		var tile: = get_tile(unit.pos)
+		
+		units.add_child(unit)
+		unit.global_position = tile.global_position
+		map.add_unit(unit.pos, unit)
+		
+		unit.ability_chosen.connect(handle_ability_selection)
 
 func _process(_delta: float) -> void:
 	if battle_state == BattleState.BEFORE_VICTORY \

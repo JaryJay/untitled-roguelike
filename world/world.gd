@@ -9,6 +9,7 @@ const choice_scene: = preload("res://choice/choice.tscn")
 enum { UNINITIALIZED, INITIALIZED, SPECTATE }
 var state: = UNINITIALIZED
 
+var roster: Roster = Roster.new()
 var current_location: Location
 
 func _ready() -> void:
@@ -23,15 +24,28 @@ func _ready() -> void:
 		loc.pressed.connect(_on_loc_pressed.bind(loc))
 
 func initialize() -> void:
-	var num_layers: = randi_range(min_num_layers, max_num_layers)
-	print(min_num_layers, " ", max_num_layers, " ", num_layers)
+	init_roster()
 	
+	var num_layers: = randi_range(min_num_layers, max_num_layers)
 	var locations: = WorldGenerator.new().generate_locations(num_layers)
 	
 	for loc: Location in locations:
 		$Locations.add_child(loc)
 	
 	state = INITIALIZED
+
+func init_roster() -> void:
+	var mage1: = Hero.new("Mage1", 10)
+	mage1.add_ability(MoveAbility.new(1, "Move", 1))
+	mage1.add_ability(DamageAbility.new(1, "Fireball", 3, 1))
+	mage1.add_ability(DamageAbility.new(3, "Icicle", 4, 5))
+	roster.heroes().append(mage1)
+	var mage2: = Hero.new("Mage2", 10)
+	mage2.add_ability(MoveAbility.new(1, "Move", 1))
+	mage2.add_ability(DamageAbility.new(1, "Fireball", 3, 1))
+	mage2.add_ability(DamageAbility.new(3, "Icicle", 4, 5))
+	roster.heroes().append(mage2)
+	
 
 func _on_loc_pressed(loc: Location) -> void:
 	print("You selected location %s " % loc.name)

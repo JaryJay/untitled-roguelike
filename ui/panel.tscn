@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dgwt7jiun6xxc" path="res://assets/ui/panel-transparent-center-009.png" id="1_54hde"]
 
+
 [node name="Panel" type="NinePatchRect"]
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,6 +1,6 @@
 class_name MoveAbility extends Ability
 
-var range: = 1
+@export var range: = 1
 
 func _init(_cost: int, _name: StringName, _range: int) -> void:
 	super(_cost)

@@ -1,7 +1,7 @@
 class_name HealAbility extends Ability
 
-var range: = 1
-var health: = 1
+@export_range(0, 15) var range: = 1
+@export_range(0, 2000) var health: = 1
 
 func _init(_cost: int, _name: StringName, _range: int, _health: int) -> void:
 	super(_cost)

@@ -1,7 +1,7 @@
 class_name DamageAbility extends Ability
 
-var range: = 1
-var damage: = 1
+@export_range(0, 20) var range: = 1
+@export_range(0, 2000) var damage: = 1
 
 func _init(_cost: int, _name: StringName, _range: int, _damage: int) -> void:
 	super(_cost)

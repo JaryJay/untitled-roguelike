@@ -7,8 +7,10 @@ var item_collection: = ItemCollection.new()
 
 @export var team: Team.s = Team.s.ALLY_PLAYER
 
-var abilities: Array[Ability] = []
 var pos: Vector2i
+@export var _ability_set: AbilitySet = AbilitySet.new()
+# Only used by AI-controlled units
+var _next_ability_context: AbilityContext = AbilityContext.new(self)
 
 var status_effect_group: = StatusEffectGroup.new()
 @export_range(0, 200) var max_health: int = 5
@@ -24,9 +26,6 @@ func _ready() -> void:
 	$HealthLabel/Label.text = str(health)
 	actions_left_label.text = str(actions_left)
 	_set_actions_left(actions_left)
-
-func add_ability(ability: Ability) -> void:
-	abilities.append(ability)
 
 func change_health(new_health: int, source: Variant) -> void:
 	if health == new_health: return
@@ -50,3 +49,11 @@ func move_smoothly_to(p: Vector2) -> void:
 
 func rand() -> float:
 	return randf()
+
+
+func ability_set() -> AbilitySet:
+	return _ability_set
+
+func next_ability_context() -> AbilityContext:
+	return _next_ability_context
+

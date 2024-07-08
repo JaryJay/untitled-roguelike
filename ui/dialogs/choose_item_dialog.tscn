@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ds08o54oxhplt" path="res://assets/ui/divider-fade-005.png" id="3_jmnng"]
 [ext_resource type="Texture2D" uid="uid://tvwqc6k6o0xb" path="res://assets/ui/panel-transparent-center-027.png" id="4_pfqqv"]
 
+
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_q6cw4")
 

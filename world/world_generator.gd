@@ -79,6 +79,6 @@ func get_possible_connections(index: int, layer_size: int, to: Array[Variant]) -
 
 func generate_location() -> Location:
 	var possibilities: Array[PackedScene] = [battle_location_scene, choice_location_scene]
-	var weights: Array[int] = [80, 20]
+	var weights: Array[int] = [80, 0]
 	var index: = Random.weighted(weights)
 	return possibilities[index].instantiate() as Location

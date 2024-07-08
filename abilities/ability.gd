@@ -1,8 +1,8 @@
 class_name Ability extends Resource
 
-var name: StringName = "NO NAME"
-var cost: int
-@export var needs_target: bool : get = _needs_target
+@export var name: StringName = "NO NAME"
+@export_range(0, 15) var cost: int = 1
+var needs_target: bool : get = _needs_target
 
 func _init(_cost: int) -> void:
 	cost = _cost

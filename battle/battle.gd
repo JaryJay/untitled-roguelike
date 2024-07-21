@@ -267,14 +267,8 @@ func _on_end_turn_button_pressed() -> void:
 func generate_ai_turn(unit: Unit) -> void:
 	assert(unit.team == Team.s.ENEMY_AI, "Only Enemy AIs supported right now")
 	print("Generating turn for %s" % unit.name)
-	#unit.next_ability_context
 	
-	unit.
-	
-	for i: int in range(unit.actions_left):
-		var rand_ability: = unit.abiliti[0]
-		
-		unit.next_abilities.append(rand_ability)
+	unit.next_ability_context().generate()
 	unit.update_ability_ui()
 
 func do_ai_turns() -> void:

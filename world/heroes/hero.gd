@@ -4,7 +4,7 @@ class_name Hero extends Resource
 var starting_pos: Vector2i
 
 var item_collection: = ItemCollection.new()
-var base_abilities: Array[Ability] = []
+@export var base_abilities: AbilitySet = AbilitySet.new()
 
 @export_range(0, 200) var max_health: int = 5
 var health: int = max_health
@@ -16,14 +16,14 @@ func _init(_name: StringName, _max_health: int) -> void:
 	health = _max_health
 
 func add_ability(ability: Ability) -> void:
-	base_abilities.append(ability)
+	base_abilities.abilities0.append(ability)
 
 func create_unit(scene: PackedScene) -> Unit:
 	var unit: Unit = scene.instantiate()
 	unit.pos = starting_pos
 	# TODO: Maybe set a copy instead?
 	unit.item_collection = item_collection
-	unit.abilities = base_abilities
+	#unit.abilities = base_abilities
 	unit.max_health = max_health
 	unit.health = health
 	unit.max_actions = max_actions

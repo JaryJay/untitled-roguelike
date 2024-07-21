@@ -1,87 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdk22p1yo8o67"]
+[gd_scene load_steps=3 format=3 uid="uid://5ubm6l865no2"]
 
-[ext_resource type="Script" path="res://actors/unit.gd" id="1_mdsbl"]
+[ext_resource type="PackedScene" uid="uid://l6q8u6pv0fb1" path="res://actors/base_unit.tscn" id="1_monae"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="3_4heto"]
-[ext_resource type="Script" path="res://abilities/ability_set.gd" id="6_iaaxk"]
 
-[sub_resource type="Resource" id="Resource_enalm"]
-script = ExtResource("6_iaaxk")
-abilities0 = Array[Resource("res://abilities/ability.gd")]([null])
-abilities1 = Array[Resource("res://abilities/ability.gd")]([])
-abilities2 = Array[Resource("res://abilities/ability.gd")]([])
+[node name="BaseUnit" instance=ExtResource("1_monae")]
 
-[sub_resource type="Animation" id="Animation_o46b0"]
-resource_name = "idle"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 4.64081)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0.890805)]
-}
-
-[sub_resource type="Animation" id="Animation_tgpn7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0b446"]
-_data = {
-"RESET": SubResource("Animation_tgpn7"),
-"idle": SubResource("Animation_o46b0")
-}
-
-[node name="Mage"]
-script = ExtResource("1_mdsbl")
-_ability_set = SubResource("Resource_enalm")
-
-[node name="Sprite2D" type="Sprite2D" parent="." index="3"]
+[node name="Sprite2D" type="Sprite2D" parent="." index="5"]
+position = Vector2(19, -1)
 texture = ExtResource("3_4heto")
-offset = Vector2(15, -1)
 region_enabled = true
 region_rect = Rect2(35, 17, 69, 87)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
-libraries = {
-"": SubResource("AnimationLibrary_0b446")
-}

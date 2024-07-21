@@ -22,6 +22,7 @@ var actions_left: int = 3 : set = _set_actions_left
 
 @export var ai: Ai
 @onready var actions_left_label: = $ActionsLeftLabel
+@onready var actions_label: = $ActionsLabel
 @onready var ability_selection_ui: = $AbilitySelectionUI
 
 @onready var _selected: bool = false
@@ -59,6 +60,12 @@ func move_smoothly_to(p: Vector2) -> void:
 
 func _on_ability_chosen(ability: Ability) -> void:
 	ability_chosen.emit(ability)
+
+# For AI to show what abilities they're going to use
+func update_ability_ui() -> void:
+	actions_label.text = ""
+	for ability: Ability in next_ability_context().get_all_abilities():
+		actions_label.text += "%s " % ability.name
 
 func rand() -> float:
 	return randf()

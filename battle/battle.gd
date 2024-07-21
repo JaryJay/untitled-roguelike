@@ -8,7 +8,7 @@ const tile_height: = 97
 
 const grass_tile_scene: = preload("res://world/grass_tile.tscn")
 const ally_scene: = preload("res://actors/allies/mage.tscn")
-const enemy_scene: = preload("res://actors/enemies/enemy.tscn")
+const enemy_scene: = preload("res://actors/enemies/goblin.tscn")
 
 enum BattleState {
 	PLAYER_TURN,
@@ -23,14 +23,14 @@ enum BattleState {
 
 var map: Map = Map.new()
 
-var selected_ally: Ally = null
+var selected_ally: Unit = null
 var selected_ability: Ability = null
 var selected_tile: Tile = null
 var battle_state: BattleState = BattleState.PLAYER_TURN
 
 # For resolving enemy abilities
-var current_enemy: Enemy = null
-var enemies: Array[Enemy] = []
+var current_enemy: Unit = null
+var enemies: Array[Unit] = []
 var abilities_to_resolve: Array[Ability] = []
 var events_to_resolve: Array[Event] = []
 var waiting_for_resolve: = false
@@ -115,7 +115,7 @@ func process_enemies() -> void:
 		_on_enemy_turns_end()
 
 func _on_enemy_turns_end() -> void:
-	if not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return u is Enemy):
+	if not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return Team.is_enemy(u.team)):
 		# If no enemies left...
 		#victory.emit()
 		battle_state = BattleState.BEFORE_VICTORY
@@ -130,7 +130,7 @@ func _on_enemy_turns_end() -> void:
 			choose_item_dialog.queue_free()
 		)
 		return
-	elif not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return u is Ally):
+	elif not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return Team.is_ally(u.team)):
 		# If no allies left...
 		defeat.emit()
 		return
@@ -159,7 +159,7 @@ func add_ally_to(x: int, y: int) -> void:
 	var pos: = Vector2i(x, y)
 	var tile: = get_tile(pos)
 	
-	var unit: Ally = ally_scene.instantiate()
+	var unit: Unit = ally_scene.instantiate()
 	units.add_child(unit)
 	unit.global_position = tile.global_position
 	unit.pos = pos
@@ -203,7 +203,7 @@ func _on_tile_click(pos: Vector2i) -> void:
 			selected_tile = map.get_tile(selected_ally.pos)
 			selected_tile.is_selected = true
 		else:
-			selected_ally.is_selected = false
+			selected_ally.set_selected(false)
 			selected_ally = null
 			selected_tile.is_selected = false
 			selected_tile = null
@@ -213,7 +213,7 @@ func handle_unit_selection(pos: Vector2i) -> void:
 	
 	# Deselect everything
 	if selected_ally:
-		selected_ally.is_selected = false
+		selected_ally.set_selected(false)
 		selected_ally = null
 	if selected_tile:
 		selected_tile.is_selected = false
@@ -228,7 +228,7 @@ func handle_unit_selection(pos: Vector2i) -> void:
 		return
 	else:
 		selected_ally = unit
-		selected_ally.is_selected = true
+		selected_ally.set_selected(true)
 		selected_tile = get_tile(pos)
 		selected_tile.is_selected = true
 
@@ -254,7 +254,7 @@ func _on_turn_start() -> void:
 func _on_turn_end() -> void:
 	battle_state = BattleState.ENEMY_TURN
 	if selected_ally:
-		selected_ally.is_selected = false
+		selected_ally.set_selected(false)
 		selected_ally = null
 	selected_ability = null
 	print("You ended your turn")
@@ -268,8 +268,11 @@ func generate_ai_turn(unit: Unit) -> void:
 	assert(unit.team == Team.s.ENEMY_AI, "Only Enemy AIs supported right now")
 	print("Generating turn for %s" % unit.name)
 	#unit.next_ability_context
+	
+	unit.
+	
 	for i: int in range(unit.actions_left):
-		var rand_ability: Ability = unit.abilities[0]
+		var rand_ability: = unit.abiliti[0]
 		
 		unit.next_abilities.append(rand_ability)
 	unit.update_ability_ui()

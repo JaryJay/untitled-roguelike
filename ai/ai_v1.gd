@@ -15,8 +15,8 @@ func do_ability(ability: Ability, map: Map) -> Array[Event]:
 	elif ability is DamageAbility:
 		var possible_pos: = map.get_positions_within_distance(pos, ability.range)
 		var possible_targets: = possible_pos.filter(func(p: Vector2i) -> bool:
-			return map.has_unit(p) and map.get_unit(p) is Ally).map(func(p: Vector2i) -> Unit:
-			return map.get_unit(p))
+			return map.has_unit(p) and Team.hostile_to_each_other(map.get_unit(p).team, unit.team)) \
+			.map(func(p: Vector2i) -> Unit: return map.get_unit(p))
 		if possible_targets.size():
 			return ability.use(unit, map, possible_targets[0].pos)
 	elif ability is HealAbility:

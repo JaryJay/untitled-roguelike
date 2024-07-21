@@ -1,4 +1,4 @@
-class_name Ai extends RefCounted
+class_name Ai extends Resource
 
 var unit: Unit
 

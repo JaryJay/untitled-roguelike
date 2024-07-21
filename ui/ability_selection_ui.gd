@@ -2,9 +2,13 @@ class_name AbilitySelectionUI extends Node2D
 
 signal ability_chosen(ability: Ability)
 
-@export var disabled: = true
+@export var _disabled: = true
 
-func add_ability(ability: Ability) -> void:
+func init(ability_set: AbilitySet) -> void:
+	for ability: Ability in ability_set.get_all_abilities():
+		_add_ability(ability)
+
+func _add_ability(ability: Ability) -> void:
 	var button: = Button.new()
 	button.text = ability.name
 	button.pressed.connect(_on_ability_pressed.bind(ability))
@@ -14,4 +18,4 @@ func _on_ability_pressed(ability: Ability) -> void:
 	ability_chosen.emit(ability)
 
 func is_disabled() -> bool:
-	return disabled
+	return _disabled

@@ -1,7 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpw7ahjuep21x"]
+[gd_scene load_steps=3 format=3 uid="uid://cs8qqrfcbf8fu"]
 
 [ext_resource type="PackedScene" uid="uid://l6q8u6pv0fb1" path="res://actors/base_unit.tscn" id="1_2enbe"]
-[ext_resource type="Script" path="res://actors/allies/ally.gd" id="1_8jh2j"]
+
+[sub_resource type="GDScript" id="GDScript_07wc2"]
+script/source = "lass_name Ally extends Unit
+
+signal ability_chosen(ability: Ability)
+
+@onready var ability_selection_ui: AbilitySelectionUI = $AbilitySelectionUI
+
+var is_selected: bool = false : set = _set_is_selected
+
+func _ready() -> void:
+	super()
+	for a: Ability in abilities:
+		ability_selection_ui.add_ability(a)
+	ability_selection_ui.ability_chosen.connect(_on_ability_chosen)
+
+func has_actions_left() -> bool:
+	return actions_left > 0
+
+func _set_is_selected(val: bool) -> void:
+	is_selected = val
+	ability_selection_ui.visible = is_selected
+
+func _on_ability_chosen(ability: Ability) -> void:
+	ability_chosen.emit(ability)
+
+"
 
 [node name="Ally" groups=["units"] instance=ExtResource("1_2enbe")]
-script = ExtResource("1_8jh2j")
+script = SubResource("GDScript_07wc2")

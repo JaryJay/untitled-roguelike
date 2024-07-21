@@ -1,52 +1,87 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdk22p1yo8o67"]
+[gd_scene load_steps=8 format=3 uid="uid://cdk22p1yo8o67"]
 
-[ext_resource type="PackedScene" uid="uid://cpw7ahjuep21x" path="res://actors/allies/ally.tscn" id="1_jm100"]
-[ext_resource type="Script" path="res://actors/allies/mage.gd" id="2_wq0jb"]
+[ext_resource type="Script" path="res://actors/unit.gd" id="1_mdsbl"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="3_4heto"]
-[ext_resource type="Script" path="res://abilities/move_ability.gd" id="3_lyrwy"]
-[ext_resource type="Script" path="res://abilities/damage_ability.gd" id="4_gyf52"]
-[ext_resource type="Script" path="res://abilities/heal_ability.gd" id="5_0yb0o"]
 [ext_resource type="Script" path="res://abilities/ability_set.gd" id="6_iaaxk"]
 
-[sub_resource type="Resource" id="Resource_q54vn"]
-script = ExtResource("3_lyrwy")
-range = 1
-name = &"Move"
-cost = 1
-
-[sub_resource type="Resource" id="Resource_ybwk2"]
-script = ExtResource("4_gyf52")
-range = 3
-damage = 1
-name = &"Fireball"
-cost = 1
-
-[sub_resource type="Resource" id="Resource_wjdru"]
-script = ExtResource("4_gyf52")
-range = 4
-damage = 5
-name = &"Icicle"
-cost = 3
-
-[sub_resource type="Resource" id="Resource_8fmgx"]
-script = ExtResource("5_0yb0o")
-range = 1
-health = 1
-name = &"NO NAME"
-cost = 1
-
-[sub_resource type="Resource" id="Resource_st26e"]
+[sub_resource type="Resource" id="Resource_enalm"]
 script = ExtResource("6_iaaxk")
-abilities0 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resource_q54vn")])
-abilities1 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resource_ybwk2"), SubResource("Resource_wjdru"), SubResource("Resource_8fmgx")])
+abilities0 = Array[Resource("res://abilities/ability.gd")]([null])
+abilities1 = Array[Resource("res://abilities/ability.gd")]([])
 abilities2 = Array[Resource("res://abilities/ability.gd")]([])
 
-[node name="Mage" instance=ExtResource("1_jm100")]
-script = ExtResource("2_wq0jb")
-_ability_set = SubResource("Resource_st26e")
+[sub_resource type="Animation" id="Animation_o46b0"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 4.64081)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.890805)]
+}
+
+[sub_resource type="Animation" id="Animation_tgpn7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0b446"]
+_data = {
+"RESET": SubResource("Animation_tgpn7"),
+"idle": SubResource("Animation_o46b0")
+}
+
+[node name="Mage"]
+script = ExtResource("1_mdsbl")
+_ability_set = SubResource("Resource_enalm")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3"]
 texture = ExtResource("3_4heto")
 offset = Vector2(15, -1)
 region_enabled = true
 region_rect = Rect2(35, 17, 69, 87)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_0b446")
+}

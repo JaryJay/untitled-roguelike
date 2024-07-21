@@ -1,0 +1,110 @@
+[gd_scene load_steps=14 format=3 uid="uid://c155b85psrivu"]
+
+[ext_resource type="PackedScene" uid="uid://l6q8u6pv0fb1" path="res://actors/base_unit.tscn" id="1_vdvl7"]
+[ext_resource type="Script" path="res://abilities/move_ability.gd" id="2_v14mt"]
+[ext_resource type="Script" path="res://abilities/damage_ability.gd" id="3_fgvbd"]
+[ext_resource type="Script" path="res://abilities/heal_ability.gd" id="4_jryv0"]
+[ext_resource type="Script" path="res://abilities/ability_set.gd" id="5_m535j"]
+[ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="6_ri4h6"]
+
+[sub_resource type="Resource" id="Resource_1n0wj"]
+script = ExtResource("2_v14mt")
+range = 1
+name = &"Move"
+cost = 1
+
+[sub_resource type="Resource" id="Resource_57bxn"]
+script = ExtResource("3_fgvbd")
+range = 1
+damage = 2
+name = &"Shank"
+cost = 1
+
+[sub_resource type="Resource" id="Resource_djo41"]
+script = ExtResource("4_jryv0")
+range = 0
+health = 1
+name = &"Heal"
+cost = 1
+
+[sub_resource type="Resource" id="Resource_mg1ru"]
+script = ExtResource("5_m535j")
+abilities0 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resource_1n0wj")])
+abilities1 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resource_57bxn"), SubResource("Resource_djo41")])
+abilities2 = Array[Resource("res://abilities/ability.gd")]([])
+
+[sub_resource type="Animation" id="Animation_curvu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_phchn"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 4.53489)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.883721)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q0c1g"]
+_data = {
+"RESET": SubResource("Animation_curvu"),
+"idle": SubResource("Animation_phchn")
+}
+
+[node name="Goblin" instance=ExtResource("1_vdvl7")]
+team = 20
+_ability_set = SubResource("Resource_mg1ru")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="4"]
+texture = ExtResource("6_ri4h6")
+offset = Vector2(-1, -4)
+region_enabled = true
+region_rect = Rect2(273, 26, 52, 86)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_q0c1g")
+}

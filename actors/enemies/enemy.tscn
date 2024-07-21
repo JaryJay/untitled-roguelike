@@ -1,11 +1,48 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxsfyk3jsik1h"]
 
 [ext_resource type="PackedScene" uid="uid://l6q8u6pv0fb1" path="res://actors/base_unit.tscn" id="1_lspar"]
-[ext_resource type="Script" path="res://actors/enemies/enemy.gd" id="2_08glt"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="2_8sj7y"]
 [ext_resource type="Script" path="res://abilities/move_ability.gd" id="3_j370r"]
 [ext_resource type="Script" path="res://abilities/damage_ability.gd" id="4_647oa"]
 [ext_resource type="Script" path="res://abilities/ability_set.gd" id="4_g1a1m"]
+
+[sub_resource type="GDScript" id="GDScript_m1j8n"]
+script/source = "class_name Enemy extends Unit
+
+var next_abilities: Array[Ability] = []
+
+@onready var actions_label: = $ActionsLabel
+
+func _enter_tree() -> void:
+	add_ability(MoveAbility.new(1, \"Move\", 1))
+	add_ability(DamageAbility.new(1, \"Shank\", 1, 2))
+	add_ability(HealAbility.new(1, \"Heal\", 1, 2))
+
+func do_ability(ability: Ability, map: Map) -> Array[Event]:
+	if ability is MoveAbility:
+		var possible_targets: = map.get_positions_within_distance(pos, ability.range)
+		possible_targets = possible_targets.filter(func(p: Vector2i) -> bool:
+			return not map.has_unit(p)) # Only empty positions
+		if possible_targets.size():
+			return ability.use(self, map, possible_targets[0])
+	elif ability is DamageAbility:
+		var possible_pos: = map.get_positions_within_distance(pos, ability.range)
+		var possible_targets: = possible_pos.filter(func(p: Vector2i) -> bool:
+			return map.has_unit(p) and map.get_unit(p) is Ally).map(func(p: Vector2i) -> Unit:
+			return map.get_unit(p))
+		if possible_targets.size():
+			return ability.use(self, map, possible_targets[0].pos)
+	elif ability is HealAbility:
+		return ability.use(self, map, self.pos)
+	else:
+		assert(false, \"Ability not yet supported: %s\" % ability)
+	return []
+
+func update_ability_ui() -> void:
+	actions_label.text = \"\"
+	for ability: Ability in next_abilities:
+		actions_label.text += \"%s \" % ability.name
+"
 
 [sub_resource type="Resource" id="Resource_ou87f"]
 script = ExtResource("3_j370r")
@@ -27,7 +64,7 @@ abilities1 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resourc
 abilities2 = Array[Resource("res://abilities/ability.gd")]([])
 
 [node name="Enemy" groups=["units"] instance=ExtResource("1_lspar")]
-script = ExtResource("2_08glt")
+script = SubResource("GDScript_m1j8n")
 team = 20
 _ability_set = SubResource("Resource_hre8v")
 

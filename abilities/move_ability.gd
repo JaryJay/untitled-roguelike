@@ -2,10 +2,12 @@ class_name MoveAbility extends Ability
 
 @export var range: = 1
 
-func _init(_cost: int, _name: StringName, _range: int) -> void:
-	super(_cost)
-	name = _name
-	range = _range
+static func create(_cost: int, _name: StringName, _range: int) -> MoveAbility:
+	var a: = MoveAbility.new()
+	a.cost = _cost
+	a.name = _name
+	a.range = _range
+	return a
 
 func use(unit: Unit, _map: Map, pos: Vector2i) -> Array[Event]:
 	var ev: = MoveEvent.new()

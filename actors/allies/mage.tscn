@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://l6q8u6pv0fb1" path="res://actors/base_unit.tscn" id="1_monae"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="3_4heto"]
 
-[node name="BaseUnit" instance=ExtResource("1_monae")]
+[node name="Mage" instance=ExtResource("1_monae")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="5"]
 position = Vector2(19, -1)

@@ -10,5 +10,5 @@ func perform_with_tween(map: Map, tw: Tween) -> void:
 func perform(_map: Map) -> void:
 	assert(false, "perform() not implemented for %s" % get_class())
 
-func visual_effects(scene_tree: SceneTree) -> void:
+func visual_effects(_scene_tree: SceneTree) -> void:
 	pass

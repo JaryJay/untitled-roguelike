@@ -5,6 +5,8 @@ signal ability_chosen(ability: Ability)
 @export var _disabled: = true
 
 func init(ability_set: AbilitySet) -> void:
+	if ability_set.get_all_abilities().is_empty():
+		push_warning("Initializing ability selection UI with empty ability set.")
 	for ability: Ability in ability_set.get_all_abilities():
 		_add_ability(ability)
 
@@ -19,3 +21,6 @@ func _on_ability_pressed(ability: Ability) -> void:
 
 func is_disabled() -> bool:
 	return _disabled
+
+func enable() -> void:
+	_disabled = false

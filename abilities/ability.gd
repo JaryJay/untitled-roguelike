@@ -4,9 +4,6 @@ class_name Ability extends Resource
 @export_range(0, 15) var cost: int = 1
 var needs_target: bool : get = _needs_target
 
-func _init(_cost: int) -> void:
-	cost = _cost
-
 func use(_unit: Unit, _map: Map, _pos: Vector2i) -> Array[Event]:
 	assert(false, "perform(...) not implemented for ability %s" % get_class())
 	return []

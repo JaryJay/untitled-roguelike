@@ -36,16 +36,16 @@ func initialize() -> void:
 
 func init_roster() -> void:
 	var mage1: = Hero.new("Mage1", 10)
-	mage1.add_ability(MoveAbility.new(1, "Move", 1))
-	mage1.add_ability(DamageAbility.new(1, "Fireball", 3, 1))
-	mage1.add_ability(DamageAbility.new(3, "Icicle", 4, 5))
+	mage1.add_ability(MoveAbility.create(1, "Move", 1))
+	mage1.add_ability(DamageAbility.create(1, "Fireball", 3, 1))
+	mage1.add_ability(DamageAbility.create(3, "Icicle", 3, 5))
 	roster.heroes().append(mage1)
 	
 	var mage2: = Hero.new("Mage2", 10)
 	mage2.starting_pos = Vector2i(1, 1)
-	mage2.add_ability(MoveAbility.new(1, "Move", 1))
-	mage2.add_ability(DamageAbility.new(1, "Fireball", 3, 1))
-	mage2.add_ability(DamageAbility.new(3, "Icicle", 4, 5))
+	mage2.add_ability(MoveAbility.create(1, "Move", 1))
+	mage2.add_ability(DamageAbility.create(1, "Fireball", 3, 1))
+	mage2.add_ability(DamageAbility.create(3, "Icicle", 3, 5))
 	roster.heroes().append(mage2)
 	
 

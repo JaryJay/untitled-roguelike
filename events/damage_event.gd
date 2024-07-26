@@ -5,7 +5,7 @@ var damage: int
 # might not use
 var damage_multiplier: int = 1
 
-func perform(map: Map) -> void:
+func perform(_map: Map) -> void:
 	var new_health: = target.health - maxi(0, damage * damage_multiplier - target.shield)
 	target.change_health(new_health, source)
 	#print("Target %s has %d health left" % [target.name, target.health])

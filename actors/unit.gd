@@ -28,6 +28,8 @@ var actions_left: int = 3 : set = _set_actions_left
 
 func _ready() -> void:
 	# Check that required fields are set
+	assert(get_ability_set() != null, "No ability set.")
+	assert(get_item_collection() != null, "No item collection.")
 	if Team.is_ai(team):
 		assert(ai != null, "No AI.")
 	else:
@@ -54,6 +56,9 @@ func change_health(new_health: int, source: Variant) -> void:
 	
 	if health <= 0: health_depleted.emit(source)
 
+func has_actions_left() -> bool:
+	return actions_left > 0
+
 func _set_actions_left(val: int) -> void:
 	actions_left = val
 	if is_node_ready():
@@ -77,8 +82,18 @@ func update_ability_ui() -> void:
 func rand() -> float:
 	return randf()
 
-func ability_set() -> AbilitySet:
+func get_item_collection() -> ItemCollection:
+	return _item_collection
+
+func set_item_collection(item_collection: ItemCollection) -> void:
+	assert(item_collection != null, "Item collection cannot be set to null.")
+	_item_collection = item_collection
+
+func get_ability_set() -> AbilitySet:
 	return _ability_set
+
+func set_ability_set(ability_set: AbilitySet) -> void:
+	_ability_set = ability_set
 
 func next_ability_context() -> AbilityContext:
 	return _next_ability_context
@@ -88,3 +103,7 @@ func is_selected() -> bool:
 
 func set_selected(val: bool) -> void:
 	_selected = val
+	if !ability_selection_ui.is_disabled():
+		ability_selection_ui.visible = val
+	else:
+		ability_selection_ui.hide()

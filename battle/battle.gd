@@ -37,8 +37,6 @@ var waiting_for_resolve: = false
 
 func _ready() -> void:
 	_generate_tiles()
-	#add_ally_to(1, 2)
-	#add_ally_to(2, 2)
 	add_enemy_to(4, 2)
 	_on_turn_start()
 
@@ -92,7 +90,7 @@ func process_events() -> void:
 		var event_trigger: = EventTrigger.new(event)
 		
 		for unit: Unit in get_tree().get_nodes_in_group("units"):
-			event_trigger = unit.item_collection.modify_event_trigger(event_trigger)
+			event_trigger = unit.get_item_collection().modify_event_trigger(event_trigger)
 		
 		event_trigger.event.processed = true
 		var new_events_to_resolve: = event_trigger.finalize_into_event_list()
@@ -117,7 +115,6 @@ func process_enemies() -> void:
 func _on_enemy_turns_end() -> void:
 	if not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return Team.is_enemy(u.team)):
 		# If no enemies left...
-		#victory.emit()
 		battle_state = BattleState.BEFORE_VICTORY
 		var choose_item_dialog: ChooseItemDialog = load("res://ui/dialogs/choose_item_dialog.tscn").instantiate()
 		get_tree().root.add_child(choose_item_dialog)
@@ -172,6 +169,8 @@ func add_enemy_to(x: int, y: int) -> void:
 	var tile: = get_tile(pos)
 	
 	var unit: = enemy_scene.instantiate()
+	# TODO: Give items to enemies
+	unit.set_item_collection(ItemCollection.new())
 	units.add_child(unit)
 	unit.global_position = tile.global_position
 	unit.pos = pos

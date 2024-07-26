@@ -3,11 +3,12 @@ class_name HealAbility extends Ability
 @export_range(0, 15) var range: = 1
 @export_range(0, 2000) var health: = 1
 
-func _init(_cost: int, _name: StringName, _range: int, _health: int) -> void:
-	super(_cost)
-	name = _name
-	range = _range
-	health = _health
+static func create(_cost: int, _name: StringName, _range: int, _health: int) -> HealAbility:
+	var a: = HealAbility.new()
+	a.name = _name
+	a.range = _range
+	a.health = _health
+	return a
 
 func use(unit: Unit, map: Map, pos: Vector2i) -> Array[Event]:
 	var ev: = HealEvent.new()

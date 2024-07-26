@@ -4,12 +4,11 @@ signal health_changed(new: int, old: int, source: Node2D)
 signal health_depleted(source: Node2D)
 signal ability_chosen(ability: Ability)
 
-var item_collection: = ItemCollection.new()
-
 @export var team: Team.s = Team.s.ALLY_PLAYER
 
 var pos: Vector2i
-@export var _ability_set: AbilitySet = AbilitySet.new()
+var _item_collection: ItemCollection
+@export var _ability_set: AbilitySet
 # Only used by AI-controlled units
 var _next_ability_context: AbilityContext = AbilityContext.new(self)
 
@@ -28,15 +27,23 @@ var actions_left: int = 3 : set = _set_actions_left
 @onready var _selected: bool = false
 
 func _ready() -> void:
+	# Check that required fields are set
+	if Team.is_ai(team):
+		assert(ai != null, "No AI.")
+	else:
+		assert(ai == null, "AI exists but team is %s." % team)
+	
 	add_to_group("units")
 	$HealthLabel/Label.text = str(health)
 	actions_left_label.text = str(actions_left)
 	_set_actions_left(actions_left)
-	if (ai):
+	if ai:
 		ai.init(self)
 	# Init AbilitySelectionUI
-	ability_selection_ui.init(_ability_set)
-	ability_selection_ui.ability_chosen.connect(_on_ability_chosen) 
+	if (Team.is_player(team)):
+		ability_selection_ui.enable()
+		ability_selection_ui.init(_ability_set)
+		ability_selection_ui.ability_chosen.connect(_on_ability_chosen) 
 
 func change_health(new_health: int, source: Variant) -> void:
 	if health == new_health: return

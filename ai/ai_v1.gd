@@ -1,7 +1,7 @@
 class_name AiV1 extends Ai
 
-func _init(_unit: Unit) -> void:
-	super(_unit)
+func init(_unit: Unit) -> void:
+	super.init(_unit)
 
 func do_ability(ability: Ability, map: Map) -> Array[Event]:
 	var pos: = unit.pos

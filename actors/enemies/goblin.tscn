@@ -1,37 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://c155b85psrivu"]
+[gd_scene load_steps=10 format=3 uid="uid://c155b85psrivu"]
 
 [ext_resource type="PackedScene" uid="uid://l6q8u6pv0fb1" path="res://actors/base_unit.tscn" id="1_vdvl7"]
-[ext_resource type="Script" path="res://abilities/move_ability.gd" id="2_v14mt"]
-[ext_resource type="Script" path="res://abilities/damage_ability.gd" id="3_fgvbd"]
-[ext_resource type="Script" path="res://abilities/heal_ability.gd" id="4_jryv0"]
+[ext_resource type="Script" path="res://ai/ai_v1.gd" id="5_5kwg7"]
 [ext_resource type="Script" path="res://abilities/ability_set.gd" id="5_m535j"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="6_ri4h6"]
 
-[sub_resource type="Resource" id="Resource_1n0wj"]
-script = ExtResource("2_v14mt")
-range = 1
-name = &"Move"
-cost = 1
-
-[sub_resource type="Resource" id="Resource_57bxn"]
-script = ExtResource("3_fgvbd")
-range = 1
-damage = 2
-name = &"Shank"
-cost = 1
-
-[sub_resource type="Resource" id="Resource_djo41"]
-script = ExtResource("4_jryv0")
-range = 0
-health = 1
-name = &"Heal"
-cost = 1
-
 [sub_resource type="Resource" id="Resource_mg1ru"]
 script = ExtResource("5_m535j")
-abilities0 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resource_1n0wj")])
-abilities1 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resource_57bxn"), SubResource("Resource_djo41")])
+abilities0 = Array[Resource("res://abilities/ability.gd")]([])
+abilities1 = Array[Resource("res://abilities/ability.gd")]([])
 abilities2 = Array[Resource("res://abilities/ability.gd")]([])
+
+[sub_resource type="Resource" id="Resource_80lxo"]
+script = ExtResource("5_5kwg7")
 
 [sub_resource type="Animation" id="Animation_curvu"]
 length = 0.001
@@ -97,6 +78,10 @@ _data = {
 [node name="Goblin" instance=ExtResource("1_vdvl7")]
 team = 20
 _ability_set = SubResource("Resource_mg1ru")
+max_health = 5
+shield = 0
+max_actions = 3
+ai = SubResource("Resource_80lxo")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="4"]
 texture = ExtResource("6_ri4h6")

@@ -19,6 +19,8 @@ func do_ability(ability: Ability, map: Map) -> Array[Event]:
 			.map(func(p: Vector2i) -> Unit: return map.get_unit(p))
 		if possible_targets.size():
 			return ability.use(unit, map, possible_targets[0].pos)
+		else:
+			print("Warning: %s did not find target for ability '%s'" % [unit.name, ability.name])
 	elif ability is HealAbility:
 		return ability.use(unit, map, pos)
 	else:

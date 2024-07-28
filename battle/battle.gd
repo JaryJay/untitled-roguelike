@@ -69,7 +69,8 @@ func process_abilities() -> void:
 	
 	var ability: = abilities_to_resolve[0]
 	abilities_to_resolve.remove_at(0)
-	events_to_resolve.append_array(current_enemy.do_ability(ability, map))
+	assert(current_enemy.ai != null, "Cannot do ai ability because ai is null")
+	events_to_resolve.append_array(current_enemy.ai.do_ability(ability, map))
 
 func process_events() -> void:
 	if waiting_for_resolve: return
@@ -108,7 +109,7 @@ func process_enemies() -> void:
 	if enemies.size():
 		current_enemy = enemies[0]
 		enemies.remove_at(0)
-		abilities_to_resolve = current_enemy.next_abilities.duplicate()
+		abilities_to_resolve = current_enemy.next_ability_context().get_all_abilities().duplicate()
 	else:
 		_on_enemy_turns_end()
 

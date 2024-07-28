@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://ds08o54oxhplt" path="res://assets/ui/divider-fade-005.png" id="3_jmnng"]
 [ext_resource type="Texture2D" uid="uid://tvwqc6k6o0xb" path="res://assets/ui/panel-transparent-center-027.png" id="4_pfqqv"]
 
-
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_q6cw4")
 
@@ -104,5 +103,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 theme_override_constants/separation = 300
 alignment = 1

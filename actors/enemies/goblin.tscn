@@ -1,14 +1,36 @@
-[gd_scene load_steps=10 format=3 uid="uid://c155b85psrivu"]
+[gd_scene load_steps=15 format=3 uid="uid://c155b85psrivu"]
 
 [ext_resource type="PackedScene" uid="uid://l6q8u6pv0fb1" path="res://actors/base_unit.tscn" id="1_vdvl7"]
+[ext_resource type="Script" path="res://abilities/move_ability.gd" id="2_3mtcp"]
+[ext_resource type="Script" path="res://abilities/damage_ability.gd" id="3_gtqb0"]
 [ext_resource type="Script" path="res://ai/ai_v1.gd" id="5_5kwg7"]
 [ext_resource type="Script" path="res://abilities/ability_set.gd" id="5_m535j"]
 [ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="6_ri4h6"]
 
+[sub_resource type="Resource" id="Resource_1enpd"]
+script = ExtResource("2_3mtcp")
+range = 1
+name = &"Move"
+cost = 1
+
+[sub_resource type="Resource" id="Resource_2wnug"]
+script = ExtResource("3_gtqb0")
+range = 1
+damage = 2
+name = &"Shank"
+cost = 1
+
+[sub_resource type="Resource" id="Resource_25sy5"]
+script = ExtResource("3_gtqb0")
+range = 2
+damage = 1
+name = &"Dart"
+cost = 1
+
 [sub_resource type="Resource" id="Resource_mg1ru"]
 script = ExtResource("5_m535j")
-abilities0 = Array[Resource("res://abilities/ability.gd")]([])
-abilities1 = Array[Resource("res://abilities/ability.gd")]([])
+abilities0 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resource_1enpd")])
+abilities1 = Array[Resource("res://abilities/ability.gd")]([SubResource("Resource_2wnug"), SubResource("Resource_25sy5")])
 abilities2 = Array[Resource("res://abilities/ability.gd")]([])
 
 [sub_resource type="Resource" id="Resource_80lxo"]
@@ -78,9 +100,6 @@ _data = {
 [node name="Goblin" instance=ExtResource("1_vdvl7")]
 team = 20
 _ability_set = SubResource("Resource_mg1ru")
-max_health = 5
-shield = 0
-max_actions = 3
 ai = SubResource("Resource_80lxo")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="4"]

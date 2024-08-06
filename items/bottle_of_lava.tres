@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BottleOfLava" load_steps=4 format=3 uid="uid://can1do8wcyqik"]
+
+[ext_resource type="Script" path="res://items/bottle_of_lava.gd" id="1_wwjif"]
+[ext_resource type="Texture2D" uid="uid://xx8rcsi0i4sb" path="res://assets/spritesheet.png" id="2_l7fxa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_856rg"]
+atlas = ExtResource("2_l7fxa")
+region = Rect2(279, 288, 33, 59)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_wwjif")
+texture = SubResource("AtlasTexture_856rg")
+name = &"Bottle of Lava"
+text = "Something"
+rarity = 0

@@ -1,7 +1,7 @@
 class_name Items
 
 const all: Array[Item] = [
-	preload("res://items/test_item.tres"),
+	preload("res://items/bottle_of_lava.tres"),
 	preload("res://items/test_item2.tres"),
 ]
 

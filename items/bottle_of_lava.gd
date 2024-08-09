@@ -1,7 +1,8 @@
 class_name BottleOfLava extends Item
 
 func modify_event_trigger(event_trigger: EventTrigger) -> EventTrigger:
-	if not event_trigger.source() == owner: return
+	assert(owner() != null, "owner not yet defined")
+	if not event_trigger.source() == owner(): return
 	if not event_trigger.event is DamageEvent: return
 	
 	if event_trigger.source().rand() < 0.15:

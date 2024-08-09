@@ -6,6 +6,7 @@ var starting_pos: Vector2i
 var item_collection: = ItemCollection.new()
 @export var base_abilities: AbilitySet = AbilitySet.new()
 
+@export var rarity: Rarity = Rarity.COMMON
 @export_range(0, 200) var max_health: int = 5
 var health: int = max_health
 @export_range(0, 20) var max_actions: int = 3

@@ -2,7 +2,7 @@ class_name Item extends Resource
 
 enum Rarity { UNDEFINED = -1, COMMON, RARE, MYTHIC }
 
-var owner: Unit
+var _owner: Unit
 
 @export var texture: Texture2D
 @export var name: StringName
@@ -15,5 +15,8 @@ func modify_event_trigger(_event_trigger: EventTrigger) -> EventTrigger:
 	assert(false, "modify_event_trigger not implemented")
 	return null
 
-func set_owner(unit: Unit) -> void:
-	owner = unit
+func owner() -> Unit:
+	return _owner
+
+func set_owner(owner: Unit) -> void:
+	_owner = owner

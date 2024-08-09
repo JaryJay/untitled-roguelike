@@ -14,8 +14,7 @@ enum BattleState {
 	PLAYER_TURN,
 	WAITING_FOR_TARGET,
 	ENEMY_TURN,
-	BEFORE_VICTORY,
-	TRANSITION_TO_WORLD,
+	VICTORY,
 }
 
 @onready var tiles: = $Tiles
@@ -52,8 +51,7 @@ func init(roster: Roster) -> void:
 		unit.ability_chosen.connect(handle_ability_selection)
 
 func _process(_delta: float) -> void:
-	if battle_state == BattleState.BEFORE_VICTORY \
-		or battle_state == BattleState.TRANSITION_TO_WORLD:
+	if battle_state == BattleState.VICTORY:
 		return
 	if battle_state == BattleState.ENEMY_TURN:
 		process_enemies()
@@ -116,17 +114,7 @@ func process_enemies() -> void:
 func _on_enemy_turns_end() -> void:
 	if not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return Team.is_enemy(u.team)):
 		# If no enemies left...
-		battle_state = BattleState.BEFORE_VICTORY
-		var choose_item_dialog: ChooseItemDialog = load("res://ui/dialogs/choose_item_dialog.tscn").instantiate()
-		get_tree().root.add_child(choose_item_dialog)
-		choose_item_dialog.init_random()
-		choose_item_dialog.item_chosen.connect(func(item: Item) -> void:
-			battle_state = BattleState.TRANSITION_TO_WORLD
-			victory.emit()
-			print("YAY")
-			print("You selected item %s" % item.name)
-			choose_item_dialog.queue_free()
-		)
+		victory.emit()
 		return
 	elif not get_tree().get_nodes_in_group("units").any(func(u: Unit) -> bool: return Team.is_ally(u.team)):
 		# If no allies left...

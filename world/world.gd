@@ -2,6 +2,8 @@ extends Node2D
 
 const battle_scene: = preload("res://battle/battle.tscn")
 const choice_scene: = preload("res://choice/choice.tscn")
+const choose_item_dialog_scene: = preload("res://ui/dialogs/choose_item_dialog.tscn")
+const choose_hero_dialog_scene: = preload("res://ui/dialogs/choose_hero_dialog.tscn")
 
 @export_range(1, 20) var min_num_layers: int
 @export_range(1, 20) var max_num_layers: int
@@ -66,7 +68,30 @@ func _on_loc_pressed(loc: Location) -> void:
 
 func _on_battle_victory(battle: Battle) -> void:
 	battle.queue_free()
+	var choose_item_dialog: ChooseItemDialog = choose_item_dialog_scene.instantiate()
+	add_child(choose_item_dialog)
+	choose_item_dialog.init_random()
+	choose_item_dialog.item_chosen.connect(func(item: Item) -> void:
+		print("You selected item %s" % item.name)
+		choose_item_dialog.queue_free()
+		_on_item_chosen(item)
+	)
+
+func _on_item_chosen(item: Item) -> void:
+	var choose_hero_dialog: ChooseHeroDialog = choose_hero_dialog_scene.instantiate()
+	add_child(choose_hero_dialog)
+	choose_hero_dialog.init(roster)
+	choose_hero_dialog.hero_chosen.connect(func(hero: Hero) -> void:
+		print("You selected hero %s" % hero.name)
+		choose_hero_dialog.queue_free()
+		hero.item_collection.add_item(item)
+		_after_completing_location()
+	)
+
+func _after_completing_location() -> void:
 	show()
 	current_location.disabled = true
 	for loc: Location in current_location.will_unlock:
-		loc.disabled = false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+		loc.disabled = false
+
+

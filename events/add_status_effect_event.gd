@@ -8,7 +8,7 @@ func _init(_type: StatusEffect.Type, _stack: = 1) -> void:
 	status_effect_type = _type
 	stack = _stack
 
-func perform(map: Map) -> void:
+func perform(_map: Map) -> void:
 	target.status_effect_group.add_status_effect(status_effect_type, stack)
 
 func visual_effects(scene_tree: SceneTree) -> void:

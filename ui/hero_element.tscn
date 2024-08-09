@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxau4f0g317ue"]
+
+[ext_resource type="Script" path="res://ui/hero_element.gd" id="1_kvych"]
+[ext_resource type="Texture2D" uid="uid://rdlgmu22b2ut" path="res://assets/ui/panel-transparent-border-015.png" id="2_l0cu3"]
+[ext_resource type="Texture2D" uid="uid://cw6q4vteewpj4" path="res://assets/ui/panel-transparent-border-000.png" id="3_u45rd"]
+[ext_resource type="Texture2D" uid="uid://ctuho55a46oom" path="res://assets/ui/panel-transparent-border-029.png" id="4_8fv1a"]
+[ext_resource type="Texture2D" uid="uid://cuvlt1mt8x4ce" path="res://assets/ui/panel-transparent-border-025.png" id="5_wqptj"]
+[ext_resource type="Texture2D" uid="uid://cnkou2k4bxdws" path="res://icon.svg" id="6_ntktp"]
+
+[node name="HeroElement" type="VBoxContainer"]
+offset_right = 206.0
+offset_bottom = 171.0
+script = ExtResource("1_kvych")
+name_label_unhovered_color = Color(1, 1, 1, 0.776471)
+name_label_hovered_color = Color(1, 1, 1, 1)
+backgrounds = Array[Texture2D]([ExtResource("2_l0cu3"), ExtResource("3_u45rd"), ExtResource("4_8fv1a"), ExtResource("5_wqptj")])
+
+[node name="Aspect" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+alignment_vertical = 0
+
+[node name="Button" type="Button" parent="Aspect"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Aspect/Button"]
+self_modulate = Color(0.258824, 0.168627, 0.282353, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+texture = ExtResource("5_wqptj")
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
+
+[node name="TextureRect" type="TextureRect" parent="Aspect/Button/NinePatchRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_ntktp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Hero Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="Aspect/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Aspect/Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Aspect/Button" to="." method="_on_button_pressed"]

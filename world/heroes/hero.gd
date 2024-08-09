@@ -29,3 +29,5 @@ func create_unit(scene: PackedScene) -> Unit:
 	unit.max_actions = max_actions
 	unit.actions_left = max_actions
 	return unit
+
+enum Rarity { UNDEFINED = 0, COMMON, RARE, MYTHIC }

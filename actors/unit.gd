@@ -47,6 +47,9 @@ func _ready() -> void:
 		ability_selection_ui.init(_ability_set)
 		ability_selection_ui.ability_chosen.connect(_on_ability_chosen) 
 
+func init_item_collection() -> void:
+	_item_collection.set_owner(self)
+
 func change_health(new_health: int, source: Variant) -> void:
 	if health == new_health: return
 	

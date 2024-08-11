@@ -24,6 +24,7 @@ func create_unit(scene: PackedScene) -> Unit:
 	unit.pos = starting_pos
 	# TODO: Maybe set a copy instead?
 	unit.set_item_collection(item_collection)
+	unit.init_item_collection()
 	unit.set_ability_set(base_abilities)
 	unit.max_health = max_health
 	unit.health = health

@@ -77,6 +77,8 @@ func process_events() -> void:
 	var event: Event = events_to_resolve[0]
 	events_to_resolve.remove_at(0)
 	
+	assert(event.source != null, "Event source cannot be null: %s" % event.get_class())
+	
 	if (event.processed):
 		waiting_for_resolve = true
 		event.perform(map)

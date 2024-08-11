@@ -17,8 +17,10 @@ offset_bottom = -34.0
 text = "2"
 
 [node name="ActionsLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 37.0
+offset_top = -44.0
+offset_right = 77.0
+offset_bottom = -21.0
 
 [node name="HealthLabel" type="Sprite2D" parent="."]
 self_modulate = Color(0.807843, 0.807843, 0.807843, 1)
